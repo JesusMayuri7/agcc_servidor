@@ -35,7 +35,15 @@ class AhorroQuery extends Query
             'porcentaje' => [
                 'name' => 'porcentaje',
                 'type' => Type::float()
-            ]
+            ],
+            'limit' => [
+                'type' => Type::int(),
+                'description' => 'Limit the items per page',
+            ],
+            'per_page' => [
+                'type' => Type::int(),
+                'description' => 'Display a specific page',
+            ],
         ];
     }
     public function resolve($root, $args, SelectFields $fields)
@@ -44,15 +52,15 @@ class AhorroQuery extends Query
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
             }
-            if (isset($args['dni'])) {
-                $query->where('dni',$args['dni']);
+            if (isset($args['desc_ahorro'])) {
+                $query->where('desc_ahorro','LIKE','%'.$args['desc_ahorro'].'%');
             }
         };
 
         $user = Ahorro::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
-            ->paginate();
+            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }
 }
