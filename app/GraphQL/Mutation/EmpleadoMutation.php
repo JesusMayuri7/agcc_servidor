@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutation;
 
-use App\Http\Models\Empleado;
+use App\User;
 
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -45,7 +45,7 @@ class EmpleadoMutation extends Mutation
                 'type' => Type::string()
             ],
             'password' => [
-                'name' => 'clave',
+                'name' => 'password',
                 'type' => Type::string()
             ],
             'activo' => [
@@ -54,6 +54,10 @@ class EmpleadoMutation extends Mutation
             ],
             'usuario' => [
                 'name' => 'usuario',
+                'type' => Type::string()
+            ],
+            'email' => [
+                'name' => 'email',
                 'type' => Type::string()
             ],
             'created_at' => [
@@ -69,8 +73,8 @@ class EmpleadoMutation extends Mutation
     }
     public function resolve($root, $args)
     {
-        //$args['password'] = bcrypt($args['password']);
-        $user = Empleado::create($args);
+        $args['password'] = bcrypt($args['password']);
+        $user = User::create($args);
         if (!$user) {
             return null;
         }

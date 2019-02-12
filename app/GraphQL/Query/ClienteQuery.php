@@ -17,6 +17,7 @@ class ClienteQuery extends Query
         'name' => 'Cliente Query',
         'description' => 'A query of users'
     ];
+
     public function type()
     {
         // result of query with pagination laravel

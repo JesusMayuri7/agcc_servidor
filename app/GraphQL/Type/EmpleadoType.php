@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Type;
 
-use App\Http\Models\Empleado;
+use App\User;
 
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -13,7 +13,7 @@ class EmpleadoType extends GraphQLType
     protected $attributes = [
         'name' => 'empleado',
         'description' => 'Tipo de empleado',
-        'model' => Empleado::class, // define model for users type
+        'model' => User::class, // define model for users type
     ];
     
     // define field of type

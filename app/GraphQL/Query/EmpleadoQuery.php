@@ -68,7 +68,6 @@ class EmpleadoQuery extends Query
                 'name' => 'refresh_token',
                 'type' => Type::string()
             ]
-
         ];
     }
     public function resolve($root, $args, SelectFields $fields)
