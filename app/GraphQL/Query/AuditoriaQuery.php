@@ -62,8 +62,6 @@ class AuditoriaQuery extends Query
             }
             if (isset($args['tabla'])) {
                 $query->where('tabla','LIKE','%'.$args['tabla'].'%');
-            }if (isset($args['tabla'])) {
-                $query->where('tabla','LIKE','%'.$args['tabla'].'%');
             }
         };
 
