@@ -40,6 +40,14 @@ class MenuQuery extends Query
                 'name' => 'tipo',
                 'type' => Type::string()
             ],
+            'created_at' => [
+                'name' => 'created_at',
+                'type' => Type::string()
+            ],
+            'updated_at' => [
+                'name' => 'updated_at',
+                'type' => Type::string()
+            ],
             'limit' => [
                 'type' => Type::int(),
                 'description' => 'Limit the items per page',

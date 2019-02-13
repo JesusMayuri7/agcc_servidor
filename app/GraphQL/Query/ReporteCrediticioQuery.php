@@ -43,7 +43,15 @@ class ReporteCrediticioQuery extends Query
             'updated_at' => [
                 'name' => 'updated_at',
                 'type' => Type::string()
-            ]
+            ],
+            'limit' => [
+                'type' => Type::int(),
+                'description' => 'Limit the items per page',
+            ],
+            'per_page' => [
+                'type' => Type::int(),
+                'description' => 'Display a specific page',
+            ],
         ];
     }
     public function resolve($root, $args, SelectFields $fields)
@@ -52,15 +60,15 @@ class ReporteCrediticioQuery extends Query
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
             }
-            if (isset($args['dni'])) {
-                $query->where('dni',$args['dni']);
+            if (isset($args['desc_historial_crediticio'])) {
+                $query->where('desc_historial_crediticio','LIKE','%'.$args['desc_historial_crediticio'].'%');
             }
         };
 
         $user = ReporteCrediticio::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
-            ->paginate();
+            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }
 }

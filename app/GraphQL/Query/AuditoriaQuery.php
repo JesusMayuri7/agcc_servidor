@@ -36,10 +36,6 @@ class AuditoriaQuery extends Query
                 'name' => 'tipo',
                 'type' => Type::string()
             ],
-            'created_at' => [
-                'name' => 'created_at',
-                'type' => Type::string()
-            ],
             'campo_new' =>[
                 'name' => 'campo_new',
                 'type' => Type::string()
@@ -47,7 +43,15 @@ class AuditoriaQuery extends Query
             'empleado_id'=>[
                 'name' => 'empleado_id',
                 'type' => Type::int()
-            ]
+            ],
+            'limit' => [
+                'type' => Type::int(),
+                'description' => 'Limit the items per page',
+            ],
+            'per_page' => [
+                'type' => Type::int(),
+                'description' => 'Display a specific page',
+            ],
         ];
     }
     public function resolve($root, $args, SelectFields $fields)
@@ -56,15 +60,17 @@ class AuditoriaQuery extends Query
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
             }
-            if (isset($args['dni'])) {
-                $query->where('dni',$args['dni']);
+            if (isset($args['tabla'])) {
+                $query->where('tabla','LIKE','%'.$args['tabla'].'%');
+            }if (isset($args['tabla'])) {
+                $query->where('tabla','LIKE','%'.$args['tabla'].'%');
             }
         };
 
         $user = Auditoria::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
-            ->paginate();
+            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }
 }

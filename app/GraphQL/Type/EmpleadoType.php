@@ -71,6 +71,10 @@ class EmpleadoType extends GraphQLType
             'tipo_producto' => [
                 'type' => GraphQL::type('tipo_productoType'),
                 'description' => 'The profile of the user'
+            ],
+            'email' =>[
+                'type'=> Type::string(),
+                'description'=> 'email'
             ]
 
             // field relation to model user_profiles

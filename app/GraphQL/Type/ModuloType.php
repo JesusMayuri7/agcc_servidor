@@ -32,9 +32,17 @@ class ModuloType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The detalle of the user'
             ],
-            'menu_id' => [
+            'permiso_menu_id' => [
                 'type' => Type::int(),
-                'description' => 'The menu_id of the user'
+                'description' => 'The permiso_menu_id of the user'
+            ],
+            'created_at' => [
+                'name' => 'created_at',
+                'type' => Type::string()
+            ],
+            'updated_at' => [
+                'name' => 'updated_at',
+                'type' => Type::string()
             ],
            
             // field relation to model user_profiles

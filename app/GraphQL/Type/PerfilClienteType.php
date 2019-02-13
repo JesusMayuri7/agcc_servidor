@@ -32,10 +32,18 @@ class PerfilClienteType extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'linea_credito_id'
             ],
+            'created_at' => [
+                'name' => 'created_at',
+                'type' => Type::string()
+            ],
+            'updated_at' => [
+                'name' => 'updated_at',
+                'type' => Type::string()
+            ],
             'tipo_producto' => [
                 'type' => GraphQL::type('tipo_productoType'),
                 'description' => 'The profile of the user'
-            ]
+            ],
         ];
     }
     protected function resolveNombresField($root, $args)
