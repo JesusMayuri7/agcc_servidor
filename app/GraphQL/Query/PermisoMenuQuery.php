@@ -2,40 +2,39 @@
 
 namespace App\GraphQL\Query;
 
-use App\Http\Models\SolicitudDetalle;
+use App\Http\Models\PermisoModulo;
 
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
 use Rebing\GraphQL\Support\SelectFields;
-class solicitudDetalleQuery extends Query
+class PermisoModuloQuery extends Query
 {
     protected $attributes = [
-        'name' => 'SolicitudDetalle Query',
+        'name' => 'permiso_modulo Query',
         'description' => 'A query of users'
     ];
     public function type()
     {
         // result of query with pagination laravel
-        return GraphQL::paginate('solicitud_detalleType');
+        return GraphQL::paginate('permiso_moduloType');
     }
     
     // arguments to filter query
     public function args()
     {
         return [
-            
-            'monto' => [
-                'name' => 'monto',
-                'type' => Type::float()
+            'id' => [
+                'name' => 'id',
+                'type' => Type::int()
             ],
-            'tipo_info_detalle_id' => [
-                'name' => 'tipo_info_detalle_id',
-                'type' =>Type::int()
+            'permiso_id' =>[
+                'name' => 'permiso_id',
+                'type' => Type::int()
             ],
-            'solicitud_id' => [
-                'name' => 'solicitud_id',
-                'type' =>Type::int()
+            'menu_id' =>[
+                'name' => 'menu_id',
+                'type' => Type::int()
             ],
         ];
     }
@@ -50,7 +49,7 @@ class solicitudDetalleQuery extends Query
             }
         };
 
-        $user = SolicitudDetalle::with(array_keys($fields->getRelations()))
+        $user = PermisoModulo::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
             ->paginate();

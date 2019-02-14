@@ -32,6 +32,22 @@ class PermisoQuery extends Query
                 'name' => 'desc_permiso',
                 'type' => Type::string()
             ],
+            'created_at' => [
+                'name' => 'created_at',
+                'type' => Type::string()
+            ],
+            'updated_at' => [
+                'name' => 'updated_at',
+                'type' => Type::string()
+            ], 
+            'limit' => [
+                'type' => Type::int(),
+                'description' => 'Limit the items per page',
+            ],
+            'per_page' => [
+                'type' => Type::int(),
+                'description' => 'Display a specific page',
+            ],
             
         ];
     }
@@ -41,15 +57,15 @@ class PermisoQuery extends Query
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
             }
-            if (isset($args['dni'])) {
-                $query->where('dni',$args['dni']);
+            if (isset($args['desc_permiso'])) {
+                $query->where('desc_permiso','LIKE','%'.$args['desc_permiso'].'%');
             }
         };
 
         $user = Permiso::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
-            ->paginate();
+            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }
 }

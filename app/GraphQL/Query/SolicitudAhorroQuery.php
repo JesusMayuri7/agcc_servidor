@@ -35,7 +35,23 @@ class SolicitudAhorroQuery extends Query
             'monto' => [
                 'name' => 'monto',
                 'type' => Type::float()
-            ]
+            ],
+            'ahorro_id' => [
+                'name' => 'ahorro_id',
+                'type' =>Type::int()
+            ],
+            'solicitud_id' => [
+                'name' => 'solicitud_id',
+                'type' =>Type::int()
+            ],
+            'limit' => [
+                'type' => Type::int(),
+                'description' => 'Limit the items per page',
+            ],
+            'per_page' => [
+                'type' => Type::int(),
+                'description' => 'Display a specific page',
+            ],
         ];
     }
     public function resolve($root, $args, SelectFields $fields)
@@ -44,15 +60,15 @@ class SolicitudAhorroQuery extends Query
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
             }
-            if (isset($args['dni'])) {
-                $query->where('dni',$args['dni']);
+            if (isset($args['id'])) {
+                $query->where('id','LIKE','%'.$args['id'].'%');
             }
         };
 
         $user = SolicitudAhorro::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
-            ->paginate();
+            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }
 }

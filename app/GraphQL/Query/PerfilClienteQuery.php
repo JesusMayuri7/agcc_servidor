@@ -43,7 +43,24 @@ class PerfilClienteQuery extends Query
             'linea_credito' => [
                 'name' => 'linea_credito',
                 'type' => GraphQL::type('linea_creditoType')
-            ]             
+            ],
+            'created_at' => [
+                'name' => 'created_at',
+                'type' => Type::string()
+            ],
+            'updated_at' => [
+                'name' => 'updated_at',
+                'type' => Type::string()
+            ], 
+            'limit' => [
+                'type' => Type::int(),
+                'description' => 'Limit the items per page',
+            ],
+            'per_page' => [
+                'type' => Type::int(),
+                'description' => 'Display a specific page',
+            ],
+
         ];
     }
     public function resolve($root, $args, SelectFields $fields)
@@ -52,16 +69,14 @@ class PerfilClienteQuery extends Query
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
             }
-            if (isset($args['dni'])) {
-                $query->where('dni',$args['dni']);
+           if (isset($args['desc_perfil_cliente'])) {
+                $query->where('desc_perfil_cliente','LIKE','%'.$args['desc_perfil_cliente'].'%');
             }
         };
 
         $user = PerfilCliente::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
-
-            ->paginate();
-        return $user;
+            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
     }
 }
