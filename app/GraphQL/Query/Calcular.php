@@ -63,7 +63,7 @@ class LineaCreditoQuery extends Query
             'per_page' => [
                 'type' => Type::int(),
                 'description' => 'Display a specific page',
-            ]
+            ],
         ];
     }
     public function resolve($root, $args, SelectFields $fields)

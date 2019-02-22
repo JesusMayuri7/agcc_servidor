@@ -21,7 +21,7 @@ class PerfilClienteType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The id of the user'
             ],
             'desc_perfil_cliente' => [
@@ -34,6 +34,14 @@ class PerfilClienteType extends GraphQLType
             ],
             'tipo_producto' => [
                 'type' => GraphQL::type('tipo_productoType'),
+                'description' => 'The profile of the user'
+            ],
+            'linea_credito' => [
+                'type' => GraphQL::type('linea_creditoType'),
+                'description' => 'The profile of the user'
+            ],
+            'tipo_producto' => [
+                'type' => Type::listOf(GraphQL::type('tipo_productoType')),
                 'description' => 'The profile of the user'
             ]
         ];

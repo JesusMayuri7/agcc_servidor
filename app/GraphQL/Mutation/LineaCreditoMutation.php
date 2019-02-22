@@ -50,12 +50,31 @@ class LineaCreditoMutation extends Mutation
     }
     public function resolve($root, $args)
     {
-        //$args['password'] = bcrypt($args['password']);
-        $user = LineaCredito::create($args);
-        if (!$user) {
+        $where = function ($query) use ($args) {
+            if (isset($args['id'])) {
+                $query->where('id',$args['id']);
+            }
+            if (isset($args['desc_linea_credito'])) {
+                $query->where('desc_linea_credito','LIKE','%'.$args['desc_linea_credito'].'%');
+            }
+
+        };
+        if (isset($args['id'])) {
+           $user = LineaCredito::find($args['id']);
+           if (!$user) {
             return null;
+            }
+           $user->update($args); 
+           return $user;
         }
-        //$user->user_profiles()->create($args);
-        return $user;
+        else {
+            $user = LineaCredito::create($args);
+            if (!$user) {
+                return null;
+            }
+            return $user;
+        }
+
+
     }
 }

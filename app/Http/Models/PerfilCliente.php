@@ -13,7 +13,7 @@ class PerfilCliente extends Model
         "desc_perfil_cliente","linea_credito_id"
     ];
 
-    public function lineaCredito(){
+    public function linea_credito(){
         return $this->belongsTo(LineaCredito::class,'linea_credito_id','id');
     }
 

@@ -48,11 +48,10 @@ class TipoProductoType extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'activo'
             ],
-            // field relation to model user_profiles
-           /* 'user_profiles' => [
-                'type' => GraphQL::type('user_profiles'),
+           'tipo_producto' => [
+                'type' => Type::listOf(GraphQL::type('tipo_productoType')),
                 'description' => 'The profile of the user'
-            ]*/
+            ]
         ];
     }
     protected function resolveNombresField($root, $args)

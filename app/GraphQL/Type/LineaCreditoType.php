@@ -67,6 +67,10 @@ class LineaCreditoType extends GraphQLType
                     'type' => Type::int(),
                     'description' => 'Limit the items per page',
             ],
+            'perfil_cliente' => [
+                'type' => Type::listOf(GraphQL::type('perfil_clienteType')),
+                'description' => 'The profile of the user'
+            ]
             // field relation to model user_profiles
            /* 'user_profiles' => [
                 'type' => GraphQL::type('user_profiles'),

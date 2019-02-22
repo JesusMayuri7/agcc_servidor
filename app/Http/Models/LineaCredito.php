@@ -12,7 +12,7 @@ class LineaCredito extends Model
     "desc_linea_credito","tipo_interes","monto_minimo","monto_maximo","activo"
 ];
 
-   public function perfilCliente(){
+   public function perfil_cliente() {
        // de linea_credito de uno a muchos con perfin_cliente
        return $this->hasMany(PerfilCliente::class,'linea_credito_id','id');
    }
