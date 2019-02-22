@@ -36,10 +36,27 @@ class RolQuery extends Query
                 'name' => 'detalle',
                 'type' => Type::string()
             ],
+            'created_at' => [
+                'name' => 'created_at',
+                'type' => Type::string()
+            ],
+            'updated_at' => [
+                'name' => 'updated_at',
+                'type' => Type::string()
+            ],
+            'limit' => [
+                'type' => Type::int(),
+                'description' => 'Limit the items per page',
+            ],
+            'per_page' => [
+                'type' => Type::int(),
+                'description' => 'Display a specific page',
+            ],
             'empleado' => [
                 'name' => 'empleado',
                 'type' => GraphQL::type('empleadoType')
             ]
+
             ];
         
     
@@ -50,15 +67,15 @@ class RolQuery extends Query
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
             }
-            if (isset($args['dni'])) {
-                $query->where('dni',$args['dni']);
+            if (isset($args['desc_rol'])) {
+                $query->where('desc_rol','LIKE','%'.$args['desc_rol'].'%');
             }
         };
 
         $user = Rol::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
-            ->paginate();
+            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }
 }

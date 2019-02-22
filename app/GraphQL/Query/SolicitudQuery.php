@@ -54,24 +54,44 @@ class SolicitudQuery extends Query
                 'name' => 'comentario',
                 'type' => Type::string()
             ],
-            'nro_solicitud' => [
-                'name' => 'nro_solicitud',
-                'type' => Type::string()
-            ],
-            'estado' => [
-                'name' => 'estado',
-                'type' => Type::string()
-            ],
-            'cliente_id' => [
-                'name' => 'cliente_id',
+            'reporte_ceop' =>[
+                'name' =>'reporte_ceop',
                 'type' => Type::int()
             ],
             'historial_crediticio_id' => [
                 'name' => 'historial_crediticio_id',
                 'type' => Type::int()
             ],
+            'cliente_id' => [
+                'name' => 'cliente_id',
+                'type' => Type::int()
+            ],
             'giro_negocio_id' => [
                 'name' => 'giro_negocio_id',
+                'type' => Type::int()
+            ],
+            'garantia_id' => [
+                'name' => 'garantia_id',
+                'type' => Type::int()
+            ],
+            'aprobada' => [
+                'name' => 'aprobada',
+                'type' => Type::int()
+            ],
+            'fecha_aprobacion' => [
+                'name' => 'fecha_aprobacion',
+                'type' => Type::string()
+            ],
+            'desembolso' => [
+                'name' => 'desembolso',
+                'type' => Type::int()
+            ],
+            'fecha_desembolso' => [
+                'name' => 'fecha_desembolso',
+                'type' => Type::string()
+            ],
+            'empleado_id' => [
+                'name' => 'empleado_id',
                 'type' => Type::int()
             ],
             'garantia_id' => [
@@ -86,9 +106,30 @@ class SolicitudQuery extends Query
                 'name' => 'tipo_prestamo_id',
                 'type' => Type::int()
             ],
-            
-
-
+            'nro_solicitud' => [
+                'name' => 'nro_solicitud',
+                'type' => Type::string()
+            ],
+            'estado' => [
+                'name' => 'estado',
+                'type' => Type::string()
+            ],
+            'created_at' => [
+                'name' => 'created_at',
+                'type' => Type::string()
+            ],
+            'updated_at' => [
+                'name' => 'updated_at',
+                'type' => Type::string()
+            ],
+            'limit' => [
+                'type' => Type::int(),
+                'description' => 'Limit the items per page',
+            ],
+            'per_page' => [
+                'type' => Type::int(),
+                'description' => 'Display a specific page',
+            ],
 
         ];
     }
@@ -98,15 +139,15 @@ class SolicitudQuery extends Query
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
             }
-            if (isset($args['dni'])) {
-                $query->where('dni',$args['dni']);
+            if (isset($args['nro_solicitud'])) {
+                $query->where('nro_solicitud','LIKE','%'.$args['nro_solicitud'].'%');
             }
         };
 
         $user = Solicitud::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
-            ->paginate();
+            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }
 }

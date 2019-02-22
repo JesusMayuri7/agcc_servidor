@@ -47,10 +47,6 @@ class TipoProductoType extends GraphQLType
             'activo' => [
                 'type' => Type::int(),
                 'description' => 'activo'
-            ],
-           'tipo_producto' => [
-                'type' => Type::listOf(GraphQL::type('tipo_productoType')),
-                'description' => 'The profile of the user'
             ]
         ];
     }

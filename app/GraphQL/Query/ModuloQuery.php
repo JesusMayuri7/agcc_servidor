@@ -36,10 +36,26 @@ class ModulosQuery extends Query
                 'name' => 'detalle',
                 'type' => Type::string()
             ],
-            'menu_id' => [
-                'name' => 'menu_id',
+            'permiso_menu_id' => [
+                'name' => 'permiso_menu_id',
                 'type' =>Type::int()
-            ]
+            ],
+            'created_at' => [
+                'name' => 'created_at',
+                'type' => Type::string()
+            ],
+            'updated_at' => [
+                'name' => 'updated_at',
+                'type' => Type::string()
+            ],
+            'limit' => [
+                'type' => Type::int(),
+                'description' => 'Limit the items per page',
+            ],
+            'per_page' => [
+                'type' => Type::int(),
+                'description' => 'Display a specific page',
+            ],
         ];
     }
     public function resolve($root, $args, SelectFields $fields)
@@ -48,15 +64,15 @@ class ModulosQuery extends Query
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
             }
-            if (isset($args['dni'])) {
-                $query->where('dni',$args['dni']);
+            if (isset($args['desc_modulo'])) {
+                $query->where('desc_modulo','LIKE','%'.$args['desc_modulo'].'%');
             }
         };
 
         $user = Modulo::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
-            ->paginate();
+            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }
 }

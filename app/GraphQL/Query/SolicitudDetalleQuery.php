@@ -29,7 +29,14 @@ class solicitudDetalleQuery extends Query
                 'name' => 'monto',
                 'type' => Type::float()
             ],
-            
+            'tipo_info_detalle_id' => [
+                'name' => 'tipo_info_detalle_id',
+                'type' =>Type::int()
+            ],
+            'solicitud_id' => [
+                'name' => 'solicitud_id',
+                'type' =>Type::int()
+            ],
         ];
     }
     public function resolve($root, $args, SelectFields $fields)

@@ -36,6 +36,14 @@ class MenuType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The tipo of the user'
             ],
+            'created_at' => [
+                'name' => 'created_at',
+                'type' => Type::string()
+            ],
+            'updated_at' => [
+                'name' => 'updated_at',
+                'type' => Type::string()
+            ],
            
             // field relation to model user_profiles
            /* 'user_profiles' => [
