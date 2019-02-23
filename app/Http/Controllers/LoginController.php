@@ -18,7 +18,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         try {
             // attempt to verify the credentials and create a token for the user
-            if (! $token = $this->jwt->claims(['foo' => 'bar'])->attempt($credentials)) {
+            if (!$this->jwt->claims(['foo' => 'bar'])->attempt($credentials)) {
                 return response()->json(['error' => 'Credenciales invalidas'], 401);
             }
         } catch (JWTException $e) {
@@ -26,6 +26,17 @@ class LoginController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         // all good so return the token
-        return response()->json(compact('token'));
+        $user = $this->jwt->user()->rol;
+     /*   $data['token'] = auth()->claims([
+            //'user_id' => $user->id,
+            'rol' => $user->rol,
+            'email' => $user->email,
+        ])->attempt($credentials);*/
+        $data['user'] =  $user;
+        return response()->json([
+            'message' => 'Success',
+            'data' => $data
+        ]);
+        //return response()->json(compact('token'));
     }
 }

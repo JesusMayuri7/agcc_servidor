@@ -8,7 +8,6 @@ use App\Http\Models\Modulo;
 use App\Http\Models\Permiso;
 use App\Http\Models\Rol;
 use App\Http\Models\Auditoria;
-use App\Http\Models\Empleado;
 use App\Http\Models\PerfilClienteTipoProducto;
 use App\Http\Models\TipoPrestamo;
 use App\Http\Models\GiroNegocio;
@@ -22,6 +21,7 @@ use App\Http\Models\TipoProducto;
 use App\Http\Models\PerfilCliente;
 use App\Http\Models\TipoInfo;
 use App\Http\Models\TipoInfoDetalle;
+use App\Http\Models\MenuPemisoModulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -36,9 +36,12 @@ class UserController extends Controller
         //$users = Rol::with('empleado')->get();
         //$users = Solicitud::with('empleado')->get();
         //$users = Empleado::with('solicitud')->get();
-        //$users = Empleado::with('auditoria')->get();
+      //  $users = User::get();
         //$users = Auditoria::with('empleado')->get();
-        $users = Empleado::with('rol')->get();
+        //$users = User::with('rol.permiso_menu.permiso.modulo_menu.menu.modulo')->get();
+        $users= User::with('rol.mpm.menu','rol.mpm.permiso','rol.mpm.modulo')->get();
+       // $data=$users->rol->mpm;
+
         // $users = Solicitud::with('perfilclientetipoproducto')->get();
         //$users = PerfilClienteTipoProducto::with('solicitud')->get();
         //$users = TipoPrestamo::with('solicitud')->get();

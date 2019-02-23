@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Http\Models\Solicitud;
 use App\Http\Models\Auditoria;
 use App\Http\Models\Rol;
+use App\Http\Models\Vpermiso;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
@@ -19,11 +20,12 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable= [
-        "dni","nombres","apellido_paterno","apellido_materno","usuario","activo","email","password","created_at","updated_at","rol"
+        "dni","nombres","apellido_paterno","apellido_materno","usuario","activo","email","password","created_at","updated_at","rol","mpm"
     ];
     protected $hidden = [
         'password', 'remember_token',
     ];
+    protected $visible = ['id', 'dni','nombres','apellido_paterno','apellido_materno','usuario','email','rol','rol_modulo'];
 
     public function getJWTIdentifier()
     {
@@ -33,7 +35,7 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [
-            'rol' => $this->rol
+           // 'rol' => $this->rol
             ];
     }
 
@@ -49,8 +51,7 @@ class User extends Authenticatable implements JWTSubject
        //Segundo el nombre de la tabla pivot )perfil_cliente_tipo_producto)
        //La clave foranea de la Clase Principal (TipoProducto)
        // la clave foranea de la clase a relacionar (PerfilCliente= ..(perfil_cliente_id)
-       return $this->belongsToMany(Rol::class,'empleado_rol','empleado_id','rol_id')
-       ->withPivot('desc_rol');
+       return $this->belongsToMany(Rol::class,'empleado_rol','empleado_id','rol_id');
     }
     public function auditoria(){
         return $this->hasMany(Auditoria::class,'empleado_id','id');
@@ -59,5 +60,8 @@ class User extends Authenticatable implements JWTSubject
             //segundo la llave foranea de la tabla relacionar
                 //tercero la llave de tabla a relacionar
                     //return $this->hasMany('App\Comment', 'foreign_key', 'local_key');uno a muchos
+    }
+    public function vrol(){
+        return $this->hasMany(Vpermiso::class,'user_id','id');
     }
 }
