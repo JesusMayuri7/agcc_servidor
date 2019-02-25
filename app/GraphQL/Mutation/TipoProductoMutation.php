@@ -42,19 +42,40 @@ class TipoProductoMutation extends Mutation
             ],
             'plazo_maximo'=>[
                 'name' => 'plazo_maximo',
-                'type' => type::int()
+                'type' => Type::int()
+            ],
+            'activo'=>[
+                'name' => 'activo',
+                'type' => Type::int()
             ]
-            
         ];
     }
     public function resolve($root, $args)
     {
-        //$args['password'] = bcrypt($args['password']);
-        $user = TipoProducto::create($args);
-        if (!$user) {
+        $where = function ($query) use ($args) {
+            if (isset($args['id'])) {
+                $query->where('id',$args['id']);
+            }
+            if (isset($args['desc_tipo_producto'])) {
+                $query->where('desc_tipo_producto','LIKE','%'.$args['desc_tipo_producto'].'%');
+            }
+
+        };
+        if (isset($args['id'])) {
+           $user = TipoProducto::find($args['id']);
+           if (!$user) {
             return null;
+            }
+           $user->update($args); 
+           return $user;
         }
-        //$user->user_profiles()->create($args);
-        return $user;
+        else {
+            $user = TipoProducto::create($args);
+            if (!$user) {
+                return null;
+            }
+            return $user;
+        }
+
     }
 }

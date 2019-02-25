@@ -30,7 +30,7 @@ class AhorroQuery extends Query
             ],
             'desc_ahorro' => [
                 'name' => 'desc_ahorro',
-                'type' => Type::float()
+                'type' => Type::string()
             ],
             'porcentaje' => [
                 'name' => 'porcentaje',

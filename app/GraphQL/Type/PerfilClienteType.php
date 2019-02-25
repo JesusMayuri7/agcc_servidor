@@ -41,7 +41,7 @@ class PerfilClienteType extends GraphQLType
                 'type' => Type::string()
             ],
             'tipo_producto' => [
-                'type' => GraphQL::type('tipo_productoType'),
+                'type' =>GraphQL::type('tipo_productoType'),
                 'description' => 'The profile of the user'
             ],
             'linea_credito' => [
@@ -49,9 +49,5 @@ class PerfilClienteType extends GraphQLType
                 'description' => 'The profile of the user'
             ]
         ];
-    }
-    protected function resolveNombresField($root, $args)
-    {
-        return strtolower($root->nombres);
     }
 }

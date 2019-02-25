@@ -9,7 +9,7 @@ class TipoProducto extends Model
     protected $table='tipo_producto';
 
     protected $fillable= [
-        "desc_tipo_producto","interes","mora","plazo_minimo","plazo_maximo"
+        "desc_tipo_producto","interes","mora","plazo_minimo","plazo_maximo","activo"
     ];
 
     public function perfil_cliente()

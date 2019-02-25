@@ -21,7 +21,7 @@ class TipoProductoType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The id of the user'
             ],
             'desc_tipo_producto' => [
@@ -40,8 +40,8 @@ class TipoProductoType extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'plazo_minimo'
             ],
-            'plazo_maximo' =>[
-                'type' =>Type::int(),
+            'plazo_maximo' => [
+                'type' => Type::int(),
                 'description' => 'plazo_maximo'
             ],
             'activo' => [

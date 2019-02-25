@@ -25,7 +25,7 @@ class AhorroType extends GraphQLType
                 'description' => 'The id of the user'
             ],
             'desc_ahorro' => [
-                'type' => Type::float(),
+                'type' => Type::string(),
                 'description' => 'The desc_ahorro of user'
             ],
             'porcentaje' => [

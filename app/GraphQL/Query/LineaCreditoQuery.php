@@ -78,6 +78,8 @@ class LineaCreditoQuery extends Query
 
         };
 
+        
+
         $user = LineaCredito::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())

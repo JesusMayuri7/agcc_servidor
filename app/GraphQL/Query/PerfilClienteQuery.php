@@ -11,7 +11,7 @@ use Rebing\GraphQL\Support\SelectFields;
 class PerfilClienteQuery extends Query
 {
     protected $attributes = [
-        'name' => 'perfil_cliente Query',
+        'name' => 'perfil_clienteQuery',
         'description' => 'A query of users'
     ];
     public function type()
@@ -35,15 +35,7 @@ class PerfilClienteQuery extends Query
             'linea_credito_id' => [
                 'name' => 'linea_credito_id',
                 'type' => Type::int()
-            ] ,
-            'tipo_producto' => [
-                'name' => 'tipo_producto',
-                'type' => GraphQL::type('tipo_productoType')
-            ],
-            'linea_credito' => [
-                'name' => 'linea_credito',
-                'type' => GraphQL::type('linea_creditoType')
-            ],
+            ],          
             'created_at' => [
                 'name' => 'created_at',
                 'type' => Type::string()
@@ -78,5 +70,6 @@ class PerfilClienteQuery extends Query
             ->where($where)
             ->select($fields->getSelect())
             ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
-    }
+        return $user;         
+        }
 }
