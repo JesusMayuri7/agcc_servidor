@@ -41,11 +41,11 @@ class PerfilClienteType extends GraphQLType
                 'type' => Type::string()
             ],
             'tipo_producto' => [
-                'type' =>GraphQL::type('tipo_productoType'),
+                'type' => Type::listOf(GraphQL::type('tipo_productoType')),
                 'description' => 'The profile of the user'
             ],
             'linea_credito' => [
-                'type' => GraphQL::type('linea_creditoType'),
+                'type' => Type::listOf(GraphQL::type('linea_creditoType')),
                 'description' => 'The profile of the user'
             ]
         ];

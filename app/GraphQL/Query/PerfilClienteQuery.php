@@ -16,7 +16,6 @@ class PerfilClienteQuery extends Query
     ];
     public function type()
     {
-        // result of query with pagination laravel
         return GraphQL::paginate('perfil_clienteType');
     }
     
