@@ -26,15 +26,15 @@ class EmpleadoMutation extends Mutation
             ],
             'dni' => [
                 'name' => 'dni',
-                'type' => Type::nonNull(Type::string())
+                'type' => Type::string()
             ],
             'nombres' => [
                 'name' => 'nombres',
-                'type' => Type::nonNull(Type::string())
+                'type' => Type::string()
             ],
             'apellido_paterno' => [
                 'name' => 'apellido_paterno',
-                'type' => Type::nonNull(Type::string())
+                'type' => Type::string()
             ],
             'apellido_materno' => [
                 'name' => 'apellido_materno',
@@ -52,14 +52,6 @@ class EmpleadoMutation extends Mutation
                 'name' => 'activo',
                 'type' => Type::int()
             ],
-            'usuario' => [
-                'name' => 'usuario',
-                'type' => Type::string()
-            ],
-            'email' => [
-                'name' => 'email',
-                'type' => Type::string()
-            ],
             'created_at' => [
                 'name' => 'created_at',
                 'type' => Type::string()
@@ -68,17 +60,38 @@ class EmpleadoMutation extends Mutation
                 'name' => 'updated_at',
                 'type' => Type::string()
             ],
+            'email' => [
+                'name' => 'email',
+                'type' => Type::string()
+            ],
 
         ];
     }
     public function resolve($root, $args)
     {
-        $args['password'] = bcrypt($args['password']);
-        $user = User::create($args);
-        if (!$user) {
+        $where = function ($query) use ($args) {
+            if (isset($args['id'])) {
+                $query->where('id',$args['id']);
+            }
+            if (isset($args['dni'])) {
+                $query->where('dni',$args['dni']);
+            }
+
+        };
+        if (isset($args['id'])) {
+           $user = User::find($args['id']);
+           if (!$user) {
             return null;
+            }
+           $user->update($args); 
+           return $user;
         }
-        //$user->user_profiles()->create($args);
-        return $user;
+        else {
+            $user = User::create($args);
+            if (!$user) {
+                return null;
+            }
+            return $user;
+        }
     }
 }

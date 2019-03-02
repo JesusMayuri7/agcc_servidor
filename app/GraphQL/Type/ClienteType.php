@@ -25,7 +25,7 @@ class ClienteType extends GraphQLType
                 'description' => 'The id of the user'
             ],
             'dni' => [
-                'type' => Type::int(),
+                'type' => Type::string(),
                 'description' => 'The dni of user'
             ],
             'nombres' => [

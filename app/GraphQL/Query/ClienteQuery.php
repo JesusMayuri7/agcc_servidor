@@ -44,7 +44,7 @@ class ClienteQuery extends Query
             ],
             'dni' => [
                 'name' => 'dni',
-                'type' => Type::int()
+                'type' => Type::string()
             ],
             'nombres' => [
                 'name' => 'nombres',

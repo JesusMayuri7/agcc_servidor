@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Query;
 
-use App\Http\Models\Empleado;
+use App\User;
 
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -90,11 +90,11 @@ class EmpleadoQuery extends Query
                 $query->where('id',$args['id']);
             }
             if (isset($args['dni'])) {
-                $query->where('dni','LIKE','%'.$args['dni'].'%');
+                $query->where('dni',$args['dni']);
             }
         };
 
-        $user = Empleado::with(array_keys($fields->getRelations()))
+        $user = User::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
             ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
