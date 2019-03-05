@@ -3,8 +3,7 @@
 namespace App\GraphQL\Type;
 
 use App\Http\Models\Solicitud;
-use App\Http\Models\Cliente;
-use App\Http\Models\Empleado;
+use App\Http\Models\Garantia;
 
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -62,39 +61,142 @@ class SolicitudType extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'The plazo of the user'
             ],
-            'reporte_ceop_id' => [
+            'cliente_full_name' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->cliente['full_name'];
+                    }
+            ],
+            'cliente_dni' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->cliente['dni'];
+                    }
+            ],
+            'empleado_id' => [
                 'type' => Type::int(),
                 'description' => 'The plazo of the user'
             ],
-            'historial_crediticio_id' => [
-                'type' => Type::int(),
-                'description' => 'The plazo of the user'
+            'reporte_ceop' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->reporteCeop['desc_reporte_ceop'];
+                    }
+            ],
+            'reporte_ceop_id' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->reporteCeop['id'];
+                    }
+            ],
+            'reporte_info_id' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->reporteCrediticio['id'];
+                    }
+            ],
+            'reporte_info' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->reporteCrediticio['desc_historial_crediticio'];
+                    }
             ],
             'giro_negocio_id' => [
                 'type' => Type::int(),
                 'description' => 'The plazo of the user'
             ],
+            'giro_negocio' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->giroNegocio['desc_giro_negocio'];
+                    }
+            ],
+            'tipo_producto' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->perfilclientetipoproducto['tipoProducto']['desc_tipo_producto'];
+                    }
+            ],
+            'tipo_producto_id' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->perfilclientetipoproducto['tipoProducto']['id'];
+                    }
+            ],
+            'tipo_prestamo' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->tipoPrestamo['desc_tipo_prestamo'];
+                    }
+            ],
+            'tipo_prestamo_id' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->tipoPrestamo['id'];
+                    }
+            ],
+            // field relation to model user_profiles
+            'empleado' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->empleado['nombres'];
+                    }
+            ],
+           'avales' => [
+                'type' => Type::listOf(GraphQL::type('clienteType')),
+                'description' => 'The profile of the user'
+           ],
+           'garantia' => [
+            'type' => Type::string(),
+            'description' => 'The profile of the user',
+            'resolve' => function ($root) { // As a workaround
+                return $root->garantias['desc_garantia'];
+                }
+            ],
             'garantia_id' => [
                 'type' => Type::int(),
                 'description' => 'The plazo of the user'
             ],
-            'perfil_cliente_tipo_producto_id' => [
-                'type' => Type::int(),
-                'description' => 'The plazo of the user'
+            'perfil_cliente' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->perfilclientetipoproducto['perfilCliente']['desc_perfil_cliente'];
+                    }
             ],
-            'tipo_prestamo_id' => [
-                'type' => Type::int(),
-                'description' => 'The plazo of the user'
+            'perfil_cliente_id' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->perfilclientetipoproducto['perfilCliente']['id'];
+                    }
             ],
-            // field relation to model user_profiles
-            'empleado' => [
-                'type' => GraphQL::type('empleadoType'),
-                'description' => 'The profile of the user'
-            ]
+            'linea_credito' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->perfilclientetipoproducto['perfilCliente']['linea_credito']['desc_linea_credito'];
+                    }
+            ],
+            'linea_credito_id' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->perfilclientetipoproducto['perfilCliente']['linea_credito']['id'];
+                    }
+            ],
         ];
-    }
-    protected function resolveNombresField($root, $args)
-    {
-        return strtolower($root->nombres);
     }
 }

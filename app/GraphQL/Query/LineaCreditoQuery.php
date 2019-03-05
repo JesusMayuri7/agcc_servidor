@@ -78,11 +78,10 @@ class LineaCreditoQuery extends Query
 
         };
 
-        
-
         $user = LineaCredito::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
+            ->orderBy('created_at', 'desc')
             ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }

@@ -62,6 +62,10 @@ class ClienteQuery extends Query
                 'name' => 'fecha_nacimiento',
                 'type' => Type::string()
             ],
+            'full_name' => [
+                'name' => 'full_name',
+                'type' => Type::string()
+            ],
             'activo' => [
                 'name' => 'activo',
                 'type' => Type::int()

@@ -109,7 +109,6 @@ return [
                 'rolQuery' => RolQuery::class,
                 'permisoQuery'  =>PermisoQuery::class,
                 'menuQuery'  =>MenuQuery::class,
-                'ahorroQuery'  =>AhorroQuery::class,
                 //'empleado_rolQuery' =>EmpleadoRolQuery::class,
               //  'perfil_cliente_tipo_productoQuery' => PerfilClienteTipoProductoQuery::class,
 
@@ -145,6 +144,7 @@ return [
     ],
     'types' => [
         'clienteType'  => ClienteType::class,
+        'avalesType' => AvalesType::class,
         'solicitudType'=> SolicitudType::class,
         'empleadoType'=> EmpleadoType::class,
         'ahorroType'=> AhorroType::class,
@@ -162,7 +162,6 @@ return [
         'rolType' =>RolType::class,
         'permisoType'=> PermisoType::class,
         'menuType'=> MenuType::class,
-        'ahorroType'=> AhorroType::class,
                 //'empleado_rolType' => EmpleadoRolType::class,
     //    'perfil_cliente_tipo_productoType' => PerfilClienteTipoProductoType::class,
 

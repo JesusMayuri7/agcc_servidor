@@ -21,7 +21,7 @@ class ClienteType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The id of the user'
             ],
             'dni' => [
@@ -39,6 +39,10 @@ class ClienteType extends GraphQLType
             'apellido_materno' => [
                 'type' => Type::string(),
                 'description' => 'Apellido materno del Cliente'
+            ],
+            'full_name' => [
+                'type' => Type::string(),
+                'description' => 'Apellido materno del Cliente',
             ],
             'fecha_nacimiento' =>[
                 'type' => Type::string(),
@@ -63,17 +67,19 @@ class ClienteType extends GraphQLType
             'telefono' =>[
                 'type' => Type::int(),
                 'name' => 'telefono'
-            ]
-
-            // field relation to model user_profiles
-           /* 'user_profiles' => [
-                'type' => GraphQL::type('user_profiles'),
-                'description' => 'The profile of the user'
-            ]*/
+            ],
+            'tipo' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function (Cliente $group) {
+                    return $group->pivot->tipo;
+                    },
+                ]
         ];
     }
-    protected function resolveNombresField($root, $args)
+  /*  protected function resolveFullNameField($root, $args)
     {
-        return strtolower($root->nombres);
-    }
+        return strtoupper($root->nombres.' '.$root->apellido_paterno.' '.$root->apellido_materno);
+    }*/
+
 }

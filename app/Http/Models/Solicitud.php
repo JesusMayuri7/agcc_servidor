@@ -9,6 +9,7 @@ use App\Http\Models\ReporteCrediticio;
 use App\Http\Models\GiroNegocio;
 use App\Http\Models\TipoPrestamo;
 use App\Http\Models\Garantia;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Solicitud extends Model
@@ -33,8 +34,8 @@ class Solicitud extends Model
            ->withPivot('monto');
     }
 
-    public function cliente() {
-        return $this->belongsToMany('App\Http\Models\Cliente','avales','solicitud_id','cliente_id')->withPivot('tipo');
+    public function avales() {
+        return $this->belongsToMany('App\Http\Models\Cliente','avales','solicitud_id','cliente_id')->withPivot('tipo');        
     }
 
     public function resolucion(){
@@ -56,19 +57,22 @@ class Solicitud extends Model
     }
 
     public function tipoPrestamo(){
-        return $this->belongTo(TipoPrestamo::class,'tipo_prestamo_id','id');
+        return $this->belongsTo(TipoPrestamo::class,'tipo_prestamo_id','id');
     }
 
-    public function garantia(){
-        return $this->belongTo(Garantia::class,'garantia_id','id');
+    public function garantias(){
+        return $this->belongsTo(Garantia::class,'garantia_id','id');
     }
 
     public function perfilclientetipoproducto(){
         return $this->belongsTo(PerfilClienteTipoProducto::class,'perfil_cliente_tipo_producto_id','id');
-    }
-    
+    }  
+
     public function empleado(){
-       return $this->belongsTo(Empleado::class,'empleado_id','id');
+       return $this->belongsTo(User::class,'empleado_id','id');
     }
 
+    public function cliente(){
+        return $this->belongsTo(Cliente::class,'cliente_id','id');
+     }
 }

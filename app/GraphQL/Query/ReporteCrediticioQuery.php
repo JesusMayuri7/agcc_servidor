@@ -26,7 +26,7 @@ class ReporteCrediticioQuery extends Query
         return [
             'id' => [
                 'name' => 'id',
-                'type' => Type::nonNull(Type::int())
+                'type' => Type::int()
             ],
             'desc_historial_crediticio' => [
                 'name' => 'desc_historial_crediticio',

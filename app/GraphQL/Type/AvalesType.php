@@ -11,7 +11,7 @@ use Rebing\GraphQL\Support\Type as GraphQLType;
 class AvalesType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'cliente',
+        'name' => 'avales',
         'description' => 'Tipo de Cliente',
         'model' => Avales::class, // define model for users type
     ];

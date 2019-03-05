@@ -3,7 +3,6 @@
 namespace App\GraphQL\Query;
 
 use App\Http\Models\Solicitud;
-use App\Http\Models\Cliente;
 
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -58,7 +57,7 @@ class SolicitudQuery extends Query
                 'name' =>'reporte_ceop',
                 'type' => Type::int()
             ],
-            'historial_crediticio_id' => [
+            'reporte_info_id' => [
                 'name' => 'historial_crediticio_id',
                 'type' => Type::int()
             ],
@@ -98,8 +97,12 @@ class SolicitudQuery extends Query
                 'name' => 'garantia_id',
                 'type' => Type::int()
             ],
-            'perfil_cliente_tipo_producto_id' => [
-                'name' => 'perfil_cliente_tipo_producto_id',
+            'tipo_producto' => [
+                'name' => 'tipo_producto',
+                'type' => Type::string()
+            ],
+            'tipo_producto_id' => [
+                'name' => 'tipo_producto_id',
                 'type' => Type::int()
             ],
             'tipo_prestamo_id' => [
@@ -130,7 +133,6 @@ class SolicitudQuery extends Query
                 'type' => Type::int(),
                 'description' => 'Display a specific page',
             ],
-
         ];
     }
     public function resolve($root, $args, SelectFields $fields)
@@ -143,11 +145,11 @@ class SolicitudQuery extends Query
                 $query->where('nro_solicitud','LIKE','%'.$args['nro_solicitud'].'%');
             }
         };
-
         $user = Solicitud::with(array_keys($fields->getRelations()))
-            ->where($where)
-            ->select($fields->getSelect())
-            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
-        return $user;
+        ->where($where)
+        //->select($fields->getSelect())
+        ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
+        return $user;    
+       // dd($fields);
     }
 }
