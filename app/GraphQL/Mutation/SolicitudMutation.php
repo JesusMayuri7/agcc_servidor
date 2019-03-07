@@ -27,52 +27,52 @@ class SolicitudMutation extends Mutation
             ],
             'activo' => [
                 'name'=>'activo',
-                'type' => Type::nonNull(Type::int()),
+                'type' =>  Type::int(),
                 'description' => 'The activo of user'
             ],
             'monto' => [
                 'name'=>'monto',
-                'type' => Type::nonNull(Type::float()),
+                'type' => Type::float(),
                 'description' => 'The monto of the user'
             ],
             'plazo' => [
                 'name'=>'plazo',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The plazo of the user'
             ],
             'cuota' => [
                 'name'=>'cuota',
-                'type' => Type::nonNull(Type::float()),
+                'type' => Type::float(),
                 'description' => 'cuota del Cliente'
             ],
             'interes' => [
                 'name'=>'interes',
-                'type' => Type::nonNull(Type::float()),
+                'type' => Type::float(),
                 'description' => 'interes del Cliente'
             ],
             'comentario' => [
                 'name'=>'comentario',
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'comentario del Cliente'
             ],
             'nro_solicitud' => [
                 'name'=>'nro_solicitud',
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Apellido materno del Cliente'
             ],
             'estado' => [
                 'name'=>'estado',
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Apellido materno del Cliente'
             ],
             'cliente_id' => [
                 'name'=>'cliente_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The plazo of the user'
             ],
             'empleado_id' => [
                 'name'=>'empleado_id',
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The plazo of the user'
             ],
             'reporte_ceop_id' => [
@@ -109,12 +109,30 @@ class SolicitudMutation extends Mutation
     }
     public function resolve($root, $args)
     {
-        //$args['password'] = bcrypt($args['password']);
-        $user = Solicitud::create($args);
-        if (!$user) {
+        $where = function ($query) use ($args) {
+            if (isset($args['id'])) {
+                $query->where('id',$args['id']);
+            }
+            if (isset($args['desc_linea_credito'])) {
+                $query->where('desc_linea_credito','LIKE','%'.$args['desc_linea_credito'].'%');
+            }
+
+        };
+        if (isset($args['id'])) {
+           $user = Solicitud::find($args['id']);
+           if (!$user) {
             return null;
+            }
+           $user->update($args); 
+           return $user;
         }
-        //$user->user_profiles()->create($args);
-        return $user;
+        else {
+            $user = Solicitud::create($args);
+            if (!$user) {
+                return null;
+            }
+            return $user;
+        }
+
     }
 }
