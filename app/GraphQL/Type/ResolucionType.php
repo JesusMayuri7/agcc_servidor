@@ -43,16 +43,52 @@ class ResolucionType extends GraphQLType
             'solicitud_id'=>[
                 'type' => Type::int(),
                 'description' => 'solicitud_id'
-            ]
-            // field relation to model user_profiles
-           /* 'user_profiles' => [
-                'type' => GraphQL::type('user_profiles'),
-                'description' => 'The profile of the user'
-            ]*/
+            ],
+            'cliente_full_name' => [
+                'type' => Type::string(),
+              //  'always' => ['full_name'],
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->solicitud['cliente']['full_name'];
+                    },
+            'selectable'=>false
+            ],
+            'empleado_full_name' => [
+                'type' => Type::string(),
+              //  'always' => ['full_name'],
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->solicitud['empleado']['full_name'];
+                    },
+            'selectable'=>false
+            ],
+            'monto' => [
+                'type' => Type::string(),
+              //  'always' => ['full_name'],
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->solicitud['monto'];
+                    },
+            'selectable'=>false
+                ],
+                'cuota' => [
+                    'type' => Type::string(),
+                  //  'always' => ['full_name'],
+                    'description' => 'The profile of the user',
+                    'resolve' => function ($root) { // As a workaround
+                        return $root->solicitud['cuota'];
+                        },
+                'selectable'=>false
+                    ],
+                    'plazo' => [
+                        'type' => Type::string(),
+                      //  'always' => ['full_name'],
+                        'description' => 'The profile of the user',
+                        'resolve' => function ($root) { // As a workaround
+                            return $root->solicitud['plazo'];
+                            },
+                    'selectable'=>false
+                    ]
         ];
-    }
-    protected function resolveNombresField($root, $args)
-    {
-        return strtolower($root->nombres);
     }
 }

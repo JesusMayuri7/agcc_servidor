@@ -2,7 +2,10 @@
 
 namespace App\GraphQL\Mutation;
 
+
 use App\Http\Models\Solicitud;
+use GraphQL\Type\Definition\InputObjectType;
+use App\GraphQL\Type\AvalInputObjectType;
 
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -80,7 +83,7 @@ class SolicitudMutation extends Mutation
                 'type' => Type::int(),
                 'description' => 'The plazo of the user'
             ],
-            'historial_crediticio_id' => [
+            'reporte_info_id' => [
                 'name'=>'historial_crediticio_id',
                 'type' => Type::int(),
                 'description' => 'The plazo of the user'
@@ -105,10 +108,31 @@ class SolicitudMutation extends Mutation
                 'type' => Type::int(),
                 'description' => 'The plazo of the user'
             ],
+            'avales' => [
+                'type' => Type::listOf(new InputObjectType([
+                    'name' => 'avalInputObjectType',
+                    'fields' => [
+                        'cliente_id' => [
+                            'type' => Type::int(),
+                            'description' => 'The id of the subject'
+                        ],
+                        'solicitud_id' => [
+                            'type' => Type::int(),
+                            'description' => 'The name of the subject'
+                        ],
+                        'tipo' => [
+                            'type' => Type::string(),
+                            'description' => 'The name of the subject'
+                        ]
+                    ]
+                ])),                   
+                'description' => 'The profile of the user'
+           ],
         ];
     }
     public function resolve($root, $args)
     {
+     //   dd($args);
         $where = function ($query) use ($args) {
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
@@ -124,6 +148,14 @@ class SolicitudMutation extends Mutation
             return null;
             }
            $user->update($args); 
+           if (isset($args['avales'])) {
+                $aval = $user->avales()->detach();
+                $aval=[];
+                foreach ($args['avales'] as $item) {
+                        array_push($aval,array('solicitud_id'=>$item['solicitud_id'],'cliente_id'=>$item['cliente_id'] , 'tipo' =>$item['tipo']));
+                };
+                $user->avales()->attach($aval);
+            }                  
            return $user;
         }
         else {

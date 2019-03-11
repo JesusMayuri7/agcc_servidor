@@ -41,7 +41,7 @@ class ResolucionMutation extends Mutation
     }
     public function resolve($root, $args)
     {
-        //$args['password'] = bcrypt($args['password']);
+        $args['nro_resolucion'] = Resolucion::max('id')+1;
         $user = Resolucion::create($args);
         if (!$user) {
             return null;

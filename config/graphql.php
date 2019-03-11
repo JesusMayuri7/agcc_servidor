@@ -58,6 +58,7 @@ use App\GraphQL\Type\EmpleadoType;
 use App\GraphQL\Type\AhorroType;
 use App\GraphQL\Type\AuditoriaType;
 use App\GraphQL\Type\AvalesType;
+use App\GraphQL\Type\AvalInputObjectType;
 //use App\GraphQL\Type\EmpleadoRolType;
 use App\GraphQL\Type\GarantiaType;
 use App\GraphQL\Type\GiroNegocioType;
@@ -162,6 +163,7 @@ return [
         'rolType' =>RolType::class,
         'permisoType'=> PermisoType::class,
         'menuType'=> MenuType::class,
+       // 'avalInputObjectType'=>AvalInputObjectType::class,
                 //'empleado_rolType' => EmpleadoRolType::class,
     //    'perfil_cliente_tipo_productoType' => PerfilClienteTipoProductoType::class,
 

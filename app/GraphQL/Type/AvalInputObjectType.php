@@ -2,19 +2,19 @@
 
 namespace App\GraphQL\Type;
 
-use App\Http\Models\Avales;
+use GraphQL\Type\Definition\InputObjectType;
 
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class AvalesType extends GraphQLType
+class AvalInputObjectType extends InputObjectType
 {
+    protected $inputObject = true;
     
     protected $attributes = [
-        'name' => 'avalesType',
+        'name' => 'avalInputObjectType',
         'description' => 'Tipo de Cliente',
-        'model' => Avales::class, // define model for users type
     ];
     
     // define field of type
@@ -40,9 +40,5 @@ class AvalesType extends GraphQLType
                 'description' => 'The profile of the user'
             ]*/
         ];
-    }
-    protected function resolveNombresField($root, $args)
-    {
-        return strtolower($root->nombres);
     }
 }

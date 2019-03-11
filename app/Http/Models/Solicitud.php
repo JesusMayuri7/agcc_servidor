@@ -16,7 +16,8 @@ class Solicitud extends Model
 {
     protected $table='solicitud';
     protected $fillable= [
-        "activo","monto","plazo","cuota","interes","comentario","nro_solicitud","estado","cliente_id","empleado_id","reporte_ceop_id","historial_crediticio_id"
+        "activo","monto","plazo","cuota","interes","comentario","nro_solicitud","estado","cliente_id","empleado_id","reporte_ceop_id","historial_crediticio_id",
+        "giro_negocio_id","tipo_prestamo_id","tipo_producto_id","garantia_id","perfil_cliente_tipo_producto_id"
     ];
 
     public function ahorro(){
@@ -26,7 +27,6 @@ class Solicitud extends Model
         // la clave foranea de la clase a relacionar (PerfilCliente= ..(perfil_cliente_id)
         return $this->belongsToMany('App\Http\Models\Ahorro','solicitud_ahorro','solicitud_id','ahorro_id')
         ->withPivot('monto');
-
     }
 
     public function tipo_info_detalle(){

@@ -15,6 +15,8 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
     protected $table= 'empleado';
+    protected $attributes = ['full_name'];
+    protected $appends = ['full_name'];
     /* The attributes that should be hidden for arrays.
      *
      * @var array
@@ -63,5 +65,10 @@ class User extends Authenticatable implements JWTSubject
     }
     public function vrol(){
         return $this->hasMany(Vpermiso::class,'user_id','id');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return strtoupper($this->nombres.' '.$this->apellido_paterno.' '.$this->apellido_materno);
     }
 }

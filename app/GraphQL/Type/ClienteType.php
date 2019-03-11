@@ -42,7 +42,8 @@ class ClienteType extends GraphQLType
             ],
             'full_name' => [
                 'type' => Type::string(),
-                'description' => 'Apellido materno del Cliente',
+                'description' => 'The profile of the user',
+                'selectable'=> false,
             ],
             'fecha_nacimiento' =>[
                 'type' => Type::string(),
@@ -74,12 +75,12 @@ class ClienteType extends GraphQLType
                 'resolve' => function (Cliente $group) {
                     return $group->pivot->tipo;
                     },
-                ]
+            ],
         ];
     }
-  /*  protected function resolveFullNameField($root, $args)
+    protected function resolveFullNameField($root, $args)
     {
         return strtoupper($root->nombres.' '.$root->apellido_paterno.' '.$root->apellido_materno);
-    }*/
+    }
 
 }
