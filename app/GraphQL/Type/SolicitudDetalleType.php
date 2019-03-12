@@ -25,16 +25,19 @@ class SolicitudDetalleType extends GraphQLType
                 'type' => Type::float(),
                 'description' => 'The email of user'
             ],
-            
+            'tipo_info_detalle_id' => [
+                'type' => Type::int(),
+                'description' => 'The email of user'
+            ],
+            'solicitud_id' => [
+                'type' => Type::int(),
+                'description' => 'The email of user'
+            ],
             // field relation to model user_profiles
            /* 'user_profiles' => [
                 'type' => GraphQL::type('user_profiles'),
                 'description' => 'The profile of the user'
             ]*/
         ];
-    }
-    protected function resolveNombresField($root, $args)
-    {
-        return strtolower($root->nombres);
     }
 }

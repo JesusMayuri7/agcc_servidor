@@ -75,7 +75,7 @@ class TipoInfoDetalleQuery extends Query
 
         $user = TipoInfoDetalle::with(array_keys($fields->getRelations()))
             ->where($where)
-            ->select($fields->getSelect())
+          //  ->select($fields->getSelect())
             ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }

@@ -48,11 +48,47 @@ class TipoInfoDetalleType extends GraphQLType
             'tipo_info_id' => [
                 'type' => Type::int(),
                 'description' => 'The profile of the user'
-            ]
+            ],
+            'tipo_info_detalle_id' => [
+                'type' => Type::int(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root['pivot']['tipo_info_detalle_id'];
+                    },
+                'selectable' => false
+            ],
+            'tipo_info' => [
+                'name' => 'tipo_info',
+                'type' => Type::string(),
+                'resolve' => function ($root) { // As a workaround
+                    return $root->tipoInfo['desc_tipo_info'];
+                    },
+                'selectable' => false
+            ],
+            'informacion' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->tipoInfo['informacion'];
+                    },
+                   'selectable' => false   
+            ],
+            'monto' => [
+                'type' => Type::float(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root['pivot']['monto'];
+                    },
+                   'selectable' => false   
+            ],
+            'solicitud_id' => [
+                'type' => Type::int(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root['pivot']['solicitud_id'];
+                    },
+                   'selectable' => false   
+            ],
         ];
-    }
-    protected function resolveNombresField($root, $args)
-    {
-        return strtolower($root->nombres);
     }
 }

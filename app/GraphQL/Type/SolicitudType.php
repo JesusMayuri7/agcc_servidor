@@ -158,6 +158,10 @@ class SolicitudType extends GraphQLType
                 'type' => Type::listOf(GraphQL::type('clienteType')),
                 'description' => 'The profile of the user'
            ],
+           'tipo_info_detalle' => [
+            'type' => Type::listOf(GraphQL::type('tipo_info_detalleType')),
+            'description' => 'The profile of the user'
+            ],
            'garantia' => [
             'type' => Type::string(),
             'description' => 'The profile of the user',

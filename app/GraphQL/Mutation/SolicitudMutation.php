@@ -128,6 +128,26 @@ class SolicitudMutation extends Mutation
                 ])),                   
                 'description' => 'The profile of the user'
            ],
+           'tipo_info_detalle' => [
+            'type' => Type::listOf(new InputObjectType([
+                'name' => 'tipoInfoDetalleInputObjectType',
+                'fields' => [
+                    'tipo_info_detalle_id' => [
+                        'type' => Type::int(),
+                        'description' => 'The id of the subject'
+                    ],
+                    'solicitud_id' => [
+                        'type' => Type::int(),
+                        'description' => 'The name of the subject'
+                    ],
+                    'monto' => [
+                        'type' => Type::float(),
+                        'description' => 'The name of the subject'
+                    ]
+                ]
+            ])),                   
+            'description' => 'The profile of the user'
+       ],
         ];
     }
     public function resolve($root, $args)
@@ -155,7 +175,15 @@ class SolicitudMutation extends Mutation
                         array_push($aval,array('solicitud_id'=>$item['solicitud_id'],'cliente_id'=>$item['cliente_id'] , 'tipo' =>$item['tipo']));
                 };
                 $user->avales()->attach($aval);
-            }                  
+            }
+            if (isset($args['tipo_info_detalle'])) {
+                $aval = $user->tipo_info_detalle()->detach();
+                $aval=[];
+                foreach ($args['tipo_info_detalle'] as $item) {
+                        array_push($aval,array('solicitud_id'=>$item['solicitud_id'],'tipo_info_detalle_id'=>$item['tipo_info_detalle_id'] , 'monto' =>$item['monto']));
+                };
+                $user->tipo_info_detalle()->attach($aval);
+            }                    
            return $user;
         }
         else {
