@@ -28,6 +28,10 @@ class ResolucionType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The email of user'
             ],
+            'comentario' => [
+                'type' => Type::string(),
+                'description' => 'The email of user'
+            ],
             'estado' => [
                 'type' => Type::string(),
                 'description' => 'The name of the user'

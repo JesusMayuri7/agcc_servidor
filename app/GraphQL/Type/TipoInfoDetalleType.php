@@ -45,10 +45,10 @@ class TipoInfoDetalleType extends GraphQLType
                 'description' => 'updated_at'
             ],
             // field relation to model user_profiles
-           /* 'user_profiles' => [
-                'type' => GraphQL::type('user_profiles'),
+            'tipo_info_id' => [
+                'type' => Type::int(),
                 'description' => 'The profile of the user'
-            ]*/
+            ]
         ];
     }
     protected function resolveNombresField($root, $args)

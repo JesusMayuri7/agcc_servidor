@@ -32,6 +32,10 @@ class ResolucionMutation extends Mutation
                 'name' => 'estado',
                 'type' => Type::string()
             ],
+            'comentario' => [
+                'name' => 'comentario',
+                'type' => Type::string()
+            ],
             'solicitud_id' => [
                 'name' => 'solicitud_id',
                 'type' => Type::int()
@@ -41,12 +45,32 @@ class ResolucionMutation extends Mutation
     }
     public function resolve($root, $args)
     {
-        $args['nro_resolucion'] = Resolucion::max('id')+1;
-        $user = Resolucion::create($args);
-        if (!$user) {
-            return null;
-        }
-        //$user->user_profiles()->create($args);
-        return $user;
+
+            //   dd($args);
+            $where = function ($query) use ($args) {
+                if (isset($args['id'])) {
+                    $query->where('id',$args['id']);
+                }
+                if (isset($args['desc_linea_credito'])) {
+                    $query->where('desc_linea_credito','LIKE','%'.$args['desc_linea_credito'].'%');
+                }
+
+            };
+            if (isset($args['id'])) {
+            $user = Resolucion::find($args['id']);
+            if (!$user) {
+                return null;
+                }
+            $user->update($args);                 
+            return $user;
+            }
+            else {
+                $args['nro_resolucion'] = Resolucion::max('id')+1;
+                $user = Resolucion::create($args);
+                if (!$user) {
+                    return null;
+                }
+            return $user;
+            }
     }
 }
