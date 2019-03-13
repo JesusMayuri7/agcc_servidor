@@ -117,6 +117,10 @@ class SolicitudQuery extends Query
                 'name' => 'estado',
                 'type' => Type::string()
             ],
+       /*     'tipo_info_detalle' => [
+                'name' => 'tipo_info_detalle',
+                'type' => Type::string()
+            ],*/
             'created_at' => [
                 'name' => 'created_at',
                 'type' => Type::string()
