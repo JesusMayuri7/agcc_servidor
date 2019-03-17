@@ -18,7 +18,6 @@ class TipoProducto extends Model
         //Segundo el nombre de la tabla pivot )perfil_cliente_tipo_producto)
         //La clave foranea de la Clase Principal (TipoProducto)
         // la clave foranea de la clase a relacionar (PerfilCliente= ..(perfil_cliente_id)
-        return $this->belongsToMany('App\Http\Models\PerfilCliente','perfil_cliente_tipo_producto','tipo_producto_id','perfil_cliente_id')
-        ->withPivot('detalle');
+        return $this->belongsToMany('App\Http\Models\PerfilCliente','perfil_cliente_tipo_producto','tipo_producto_id','perfil_cliente_id')->withTimestamps();
     } 
 }

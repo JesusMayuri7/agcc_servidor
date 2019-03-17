@@ -45,9 +45,17 @@ class PerfilClienteType extends GraphQLType
                 'description' => 'The profile of the user'
             ],
             'linea_credito' => [
-                'type' => Type::listOf(GraphQL::type('linea_creditoType')),
+                'type' => GraphQL::type('linea_creditoType'),
                 'description' => 'The profile of the user'
-            ]
+            ],
+            'desc_linea_credito' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->linea_credito['desc_linea_credito'];
+                    },
+                'selectable' => false
+            ],
         ];
     }
 }

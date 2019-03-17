@@ -191,6 +191,22 @@ class SolicitudMutation extends Mutation
             if (!$user) {
                 return null;
             }
+            if (isset($args['avales'])) {
+                $aval = $user->avales()->detach();
+                $aval=[];
+                foreach ($args['avales'] as $item) {
+                        array_push($aval,array('solicitud_id'=>$user->id,'cliente_id'=>$item['cliente_id'] , 'tipo' =>$item['tipo']));
+                };
+                $user->avales()->attach($aval);
+            }
+            if (isset($args['tipo_info_detalle'])) {
+                $aval = $user->tipo_info_detalle()->detach();
+                $aval=[];
+                foreach ($args['tipo_info_detalle'] as $item) {
+                        array_push($aval,array('solicitud_id'=>$user->id,'tipo_info_detalle_id'=>$item['tipo_info_detalle_id'] , 'monto' =>$item['monto']));
+                };
+                $user->tipo_info_detalle()->attach($aval);
+            }         
             return $user;
         }
 
