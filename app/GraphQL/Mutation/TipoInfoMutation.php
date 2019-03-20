@@ -28,7 +28,14 @@ class TipoInfoMutation extends Mutation
                 'name' => 'desc_tipo_info',
                 'type' => Type::string()
             ],
-            
+            'activo' => [
+                'name' => 'activo',
+                'type' => Type::int()
+            ],
+            'informacion' => [
+                'name' => 'informacion',
+                'type' => Type::string()
+            ],
             
         ];
     }

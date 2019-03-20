@@ -28,7 +28,14 @@ class TipoInfoType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The desc_tipo_info of user'
             ],
-            
+            'activo' => [
+                'type' => Type::int(),
+                'description' => 'The desc_tipo_info of user'
+            ],
+            'informacion' => [
+                'type' => Type::string(),
+                'description' => 'The desc_tipo_info of user'
+            ],
             // field relation to model user_profiles
            /* 'user_profiles' => [
                 'type' => GraphQL::type('user_profiles'),

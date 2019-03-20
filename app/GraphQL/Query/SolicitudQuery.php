@@ -55,7 +55,8 @@ class SolicitudQuery extends Query
             ],
             'reporte_ceop' =>[
                 'name' =>'reporte_ceop',
-                'type' => Type::int()
+                'type' => Type::int(),
+                'selectable'=>false
             ],
             'reporte_info_id' => [
                 'name' => 'historial_crediticio_id',
@@ -152,6 +153,7 @@ class SolicitudQuery extends Query
         $user = Solicitud::with(array_keys($fields->getRelations()))
         ->where($where)
         //->select($fields->getSelect())
+        ->orderBy('created_at', 'desc')
         ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;    
        // dd($fields);

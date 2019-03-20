@@ -21,7 +21,6 @@ class PerfilCliente extends Model
     {
         //                                          Clase                                           Clave Principal
         return $this->belongsToMany('App\Http\Models\TipoProducto','perfil_cliente_tipo_producto','perfil_cliente_id','tipo_producto_id')
-        ->withPivot('detalle','desc_perfil_producto')
         ->withTimestamps();
     }
 }

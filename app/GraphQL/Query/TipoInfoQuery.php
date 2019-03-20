@@ -48,7 +48,14 @@ class TipoInfoQuery extends Query
                 'type' => Type::int(),
                 'description' => 'Display a specific page',
             ],
-            
+            'activo' => [
+                'type' => Type::int(),
+                'description' => 'Display a specific page',
+            ],
+            'informacion' => [
+                'name' => 'informacion',
+                'type' => Type::string()
+            ],
         ];
     }
     public function resolve($root, $args, SelectFields $fields)

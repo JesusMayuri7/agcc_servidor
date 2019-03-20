@@ -9,7 +9,7 @@ class TipoInfo extends Model
 {
     protected $table='tipo_info';
     protected $fillable = [
-        "desc_tipo_info"
+        "desc_tipo_info","activo","informacion"
     ];
     //primero la clase a relacionar
     //segundo la llave foranea de la tabla relacionar
