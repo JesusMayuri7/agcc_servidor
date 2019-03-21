@@ -51,7 +51,15 @@ class TipoProductoType extends GraphQLType
             'perfil_cliente' => [
                 'type' => Type::listOf(GraphQL::type('perfil_clienteType')),
                 'description' => 'The profile of the user'
-                ],
+            ],
+/*            'perfil_cliente_tipo_producto_id' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($group) {
+                    return $group->perfil_cliente;
+                    },
+                'selectable'=>false
+            ],*/
         ];
     }
     protected function resolveNombresField($root, $args)

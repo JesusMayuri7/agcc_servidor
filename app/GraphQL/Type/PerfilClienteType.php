@@ -56,6 +56,14 @@ class PerfilClienteType extends GraphQLType
                     },
                 'selectable' => false
             ],
+            'perfil_cliente_tipo_producto_id' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root['pivot'];
+                    },
+                'selectable' => false
+            ],
         ];
     }
 }
