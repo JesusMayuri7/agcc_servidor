@@ -8,6 +8,8 @@ use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
 use Rebing\GraphQL\Support\SelectFields;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 class ResolucionQuery extends Query
 {
     protected $attributes = [
@@ -18,6 +20,17 @@ class ResolucionQuery extends Query
     {
         // result of query with pagination laravel
         return GraphQL::paginate('resolucionType');
+    }
+
+    public function authorize(array $args)
+    {
+      // dd($args);
+       try {
+            $this->auth = JWTAuth::parseToken()->authenticate();
+        } catch (\Exception $e) {
+            $this->auth = null;
+        }
+        return (boolean) $this->auth;
     }
     
     // arguments to filter query
@@ -46,6 +59,10 @@ class ResolucionQuery extends Query
             ],
             'solicitud_id' => [
                 'name' => 'solicitud_id',
+                'type' => Type::int()
+            ],
+            'plazo_maximo' => [
+                'name' => 'plazo_maximo',
                 'type' => Type::int()
             ],
             'limit' => [

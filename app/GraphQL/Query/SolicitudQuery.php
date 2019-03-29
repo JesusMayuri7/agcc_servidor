@@ -118,10 +118,18 @@ class SolicitudQuery extends Query
                 'name' => 'estado',
                 'type' => Type::string()
             ],
-       /*     'tipo_info_detalle' => [
-                'name' => 'tipo_info_detalle',
+            'ahorro_inicial' => [
+                'name' => 'ahorro_inicial',
+                'type' => Type::float()
+            ],
+            'ahorro_programado' => [
+                'name' => 'ahorro_programado',
+                'type' => Type::float()
+            ],
+            'tipo_interes' => [
+                'name' => 'tipo_interes',
                 'type' => Type::string()
-            ],*/
+            ],
             'created_at' => [
                 'name' => 'created_at',
                 'type' => Type::string()

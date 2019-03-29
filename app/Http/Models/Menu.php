@@ -11,7 +11,7 @@ class Menu extends Model
     protected $fillable =[
         "desc_menu","detalle","tipo"
     ];
-    protected $visible = ['desc_menu','permiso'];
+    //protected $visible = ['desc_menu','permiso'];
     //primero la clase a relacionar
     //segundo la llave foranea de la tabla relacionar
     //tercero la llave de tabla a relacionar

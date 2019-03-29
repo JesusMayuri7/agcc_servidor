@@ -12,7 +12,7 @@ class MenuPermisoModulo extends Model
     protected $table='menu_permiso_modulo';
     protected $primaryKey='id';
 
-    protected $visible = [ 'menu','permiso','modulo'];
+    //protected $visible = [ 'menu','permiso','modulo'];
 
     public function permiso(){
         //primero la clase  a relacionar                    ('TipoInfo::class')

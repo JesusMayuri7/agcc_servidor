@@ -39,14 +39,37 @@ class ResolucionMutation extends Mutation
             'solicitud_id' => [
                 'name' => 'solicitud_id',
                 'type' => Type::int()
-            ]
-           
+            ],
+            'ahorro_inicial' => [
+                'name' => 'ahorro_inicial',
+                'type' => Type::float()
+            ],
+            'ahorro_programado' => [
+                'name' => 'ahorro_programado',
+                'type' => Type::float()
+            ],
+            'tipo_interes' => [
+                'name' => 'tipo_interes',
+                'type' => Type::string()
+            ],
+            'interes' => [
+                'name' => 'interes',
+                'type' => Type::float()
+            ],
+            'monto' => [
+                'name' => 'monto',
+                'type' => Type::float()
+            ],
+            'plazo' => [
+                'name' => 'plazo',
+                'type' => Type::int()
+            ],
         ];
     }
     public function resolve($root, $args)
     {
 
-            //   dd($args);
+           //    dd($args);
             $where = function ($query) use ($args) {
                 if (isset($args['id'])) {
                     $query->where('id',$args['id']);

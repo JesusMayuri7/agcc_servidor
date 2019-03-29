@@ -87,6 +87,8 @@ class EmpleadoMutation extends Mutation
            return $user;
         }
         else {
+            $args['password'] = bcrypt($args['password']);
+            dd($args['password']);
             $user = User::create($args);
             if (!$user) {
                 return null;

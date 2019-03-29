@@ -28,6 +28,18 @@ class ResolucionType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The email of user'
             ],
+            'tipo_interes' => [
+                'type' => Type::string(),
+                'description' => 'The email of user'
+            ],
+            'ahorro_inicial' => [
+                'type' => Type::float(),
+                'description' => 'The email of user'
+            ],
+            'ahorro_programado' => [
+                'type' => Type::float(),
+                'description' => 'The email of user'
+            ],
             'comentario' => [
                 'type' => Type::string(),
                 'description' => 'The email of user'
@@ -48,6 +60,14 @@ class ResolucionType extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'solicitud_id'
             ],
+            'monto'=>[
+                'type' => Type::float(),
+                'description' => 'solicitud_id'
+            ],
+            'interes'=>[
+                'type' => Type::float(),
+                'description' => 'solicitud_id'
+            ],
             'cliente_full_name' => [
                 'type' => Type::string(),
               //  'always' => ['full_name'],
@@ -66,7 +86,7 @@ class ResolucionType extends GraphQLType
                     },
             'selectable'=>false
             ],
-            'monto' => [
+            'monto_solicitado' => [
                 'type' => Type::string(),
               //  'always' => ['full_name'],
                 'description' => 'The profile of the user',
@@ -75,16 +95,25 @@ class ResolucionType extends GraphQLType
                     },
             'selectable'=>false
                 ],
-                'cuota' => [
+            'cuota' => [
                     'type' => Type::string(),
                   //  'always' => ['full_name'],
                     'description' => 'The profile of the user',
                     'resolve' => function ($root) { // As a workaround
                         return $root->solicitud['cuota'];
                         },
-                'selectable'=>false
+            'selectable'=>false
                     ],
-                    'plazo' => [
+            'plazo_maximo' => [
+                        'type' => Type::int(),
+                      //  'always' => ['full_name'],
+                        'description' => 'The profile of the user',
+                        'resolve' => function ($root) { // As a workaround
+                            return $root->solicitud->perfilclientetipoproducto['tipoProducto']['plazo_maximo'];
+                            },
+                'selectable'=>false
+                        ],
+            'plazo' => [
                         'type' => Type::string(),
                       //  'always' => ['full_name'],
                         'description' => 'The profile of the user',
@@ -92,7 +121,7 @@ class ResolucionType extends GraphQLType
                             return $root->solicitud['plazo'];
                             },
                     'selectable'=>false
-                    ]
+            ]
         ];
     }
 }

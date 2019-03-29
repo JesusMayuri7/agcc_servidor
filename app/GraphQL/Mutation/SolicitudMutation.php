@@ -147,12 +147,27 @@ class SolicitudMutation extends Mutation
                 ]
             ])),                   
             'description' => 'The profile of the user'
-       ],
+            ],
+            'ahorro_inicial' => [
+                'name'=>'ahorro_inicial',
+                'type' => Type::float(),
+                'description' => 'The plazo of the user'
+            ],
+            'ahorro_programado' => [
+                'name'=>'ahorro_programado',
+                'type' => Type::float(),
+                'description' => 'The plazo of the user'
+            ],
+            'tipo_interes' => [
+                'name'=>'tipo_interes',
+                'type' => Type::string(),
+                'description' => 'The plazo of the user'
+            ],
         ];
     }
     public function resolve($root, $args)
     {
-     //   dd($args);
+        //dd($args);
         $where = function ($query) use ($args) {
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);

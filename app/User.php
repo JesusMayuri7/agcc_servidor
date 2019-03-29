@@ -15,30 +15,31 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
     protected $table= 'empleado';
-    protected $attributes = ['full_name'];
+    //protected $attributes = ['full_name'];
     protected $appends = ['full_name'];
     /* The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $fillable= [
-        "dni","nombres","apellido_paterno","apellido_materno","usuario","activo","email","password","created_at","updated_at","rol","mpm"
+        "dni","nombres","apellido_paterno","apellido_materno","usuario","activo","email","password","created_at","updated_at","rol"
     ];
     protected $hidden = [
         'password', 'remember_token',
     ];
-    protected $visible = ['id', 'dni','nombres','apellido_paterno','apellido_materno','usuario','email','rol','rol_modulo'];
+    protected $visible = ['id', 'dni','full_name','email','rol'];
 
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
 
-    public function getJWTCustomClaims()
+     public function getJWTCustomClaims()
     {
-        return [
-           // 'rol' => $this->rol
+       return [
+            'rol' => $this->rol
             ];
+         //return [];
     }
 
     public function solicitud(){

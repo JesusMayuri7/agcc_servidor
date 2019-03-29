@@ -17,7 +17,7 @@ class Solicitud extends Model
     protected $table='solicitud';
     protected $fillable= [
         "activo","monto","plazo","cuota","interes","comentario","nro_solicitud","estado","cliente_id","empleado_id","reporte_ceop_id","historial_crediticio_id",
-        "giro_negocio_id","tipo_prestamo_id","tipo_producto_id","garantia_id","perfil_cliente_tipo_producto_id"
+        "giro_negocio_id","tipo_prestamo_id","tipo_producto_id","garantia_id","perfil_cliente_tipo_producto_id","ahorro_inicial","ahorro_programado","tipo_interes"
     ];
 
     public function ahorro(){

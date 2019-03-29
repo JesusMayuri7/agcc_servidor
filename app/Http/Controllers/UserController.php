@@ -39,7 +39,7 @@ class UserController extends Controller
       //  $users = User::get();
         //$users = Auditoria::with('empleado')->get();
         //$users = User::with('rol.permiso_menu.permiso.modulo_menu.menu.modulo')->get();
-        $users= Solicitud::with('tipo_info_detalle')->get();
+        $users= Menu::with('permiso.rol')->get();
        // $data=$users->rol->mpm;
 
         // $users = Solicitud::with('perfilclientetipoproducto')->get();

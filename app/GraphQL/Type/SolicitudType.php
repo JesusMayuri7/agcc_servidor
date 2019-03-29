@@ -222,6 +222,30 @@ class SolicitudType extends GraphQLType
                     },
                 'selectable'=>false
             ],
+            'resolucion_id' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->resolucion['id'];
+                    },
+                'selectable'=>false
+            ],
+            'perfil_cliente_tipo_producto_id' => [
+                'type' => Type::int(),
+                'description' => 'The plazo of the user'
+            ],
+            'ahorro_inicial' => [
+                'type' => Type::float(),
+                'description' => 'The plazo of the user'
+            ],
+            'ahorro_programado' => [
+                'type' => Type::float(),
+                'description' => 'The plazo of the user'
+            ],
+            'tipo_interes' => [
+                'type' => Type::string(),
+                'description' => 'The plazo of the user'
+            ],
         ];
     }
 

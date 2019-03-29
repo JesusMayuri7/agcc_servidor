@@ -48,7 +48,7 @@ class ClienteMutation extends Mutation
     }
     public function resolve($root, $args)
     {
-        //$args['password'] = bcrypt($args['password']);
+        $args['password'] = bcrypt($args['password']);
         $user = Cliente::create($args);
         if (!$user) {
             return null;

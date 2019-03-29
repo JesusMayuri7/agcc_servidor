@@ -154,6 +154,7 @@ return [
         'auditoriaType' => AuditoriaType::class,
         'linea_creditoType' => LineaCreditoType::class,
         'perfil_clienteType' => PerfilClienteType::class,
+        'perfil_cliente_tipo_productoType' => PerfilClienteTipoProductoType::class,
         'tipo_productoType' => TipoProductoType::class,
         'giro_negocioType' => GiroNegocioType::class,
         'garantiaType' => GarantiaType::class,

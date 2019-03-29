@@ -10,7 +10,7 @@ class Resolucion extends Model
     protected $primaryKey = 'id';
 
     protected $fillable= [
-        "nro_resolucion","estado","solicitud_id","comentario"
+        "nro_resolucion","estado","solicitud_id","comentario","ahorro_inicial","ahorro_programado","tipo_interes","monto","interes","plazo"
     ];
 
     public function solicitud()

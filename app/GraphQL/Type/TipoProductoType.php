@@ -11,7 +11,7 @@ use Rebing\GraphQL\Support\Type as GraphQLType;
 class TipoProductoType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'tipo_producto',
+        'name' => 'perfil_cliente_tipo_producto',
         'description' => 'Tipo de tipo_producto',
         'model' => TipoProducto::class, // define model for users type
     ];
@@ -52,18 +52,20 @@ class TipoProductoType extends GraphQLType
                 'type' => Type::listOf(GraphQL::type('perfil_clienteType')),
                 'description' => 'The profile of the user'
             ],
-/*            'perfil_cliente_tipo_producto_id' => [
+            'perfil_cliente_tipo_producto_id' => [
                 'type' => Type::string(),
                 'description' => 'The profile of the user',
-                'resolve' => function ($group) {
-                    return $group->perfil_cliente;
+                'resolve' => function ($root) { // As a workaround
+                    return $root->pivot->id;
                     },
-                'selectable'=>false
-            ],*/
+            'selectable'=>false
+            ],
         ];
     }
     protected function resolveNombresField($root, $args)
     {
         return strtolower($root->nombres);
     }
+
+
 }

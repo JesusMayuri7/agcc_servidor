@@ -55,15 +55,7 @@ class PerfilClienteType extends GraphQLType
                     return $root->linea_credito['desc_linea_credito'];
                     },
                 'selectable' => false
-            ],
-            'perfil_cliente_tipo_producto_id' => [
-                'type' => Type::string(),
-                'description' => 'The profile of the user',
-                'resolve' => function ($root) { // As a workaround
-                    return $root['pivot'];
-                    },
-                'selectable' => false
-            ],
+            ]
         ];
     }
 }
