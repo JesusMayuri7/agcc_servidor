@@ -35,7 +35,10 @@ class RolType extends GraphQLType
             'empleado' => [
                 'type' => GraphQL::type('empleadoType'),
                 'description' => 'The empleado of the user'
-            ]
+            ],
+            
+ 
+            
             // field relation to model user_profiles
            /* 'user_profiles' => [
                 'type' => GraphQL::type('user_profiles'),

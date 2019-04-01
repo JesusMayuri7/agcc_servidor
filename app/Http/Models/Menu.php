@@ -9,9 +9,9 @@ class Menu extends Model
 {
     protected $table='menu';
     protected $fillable =[
-        "desc_menu","detalle","tipo"
+        "desc_menu","formulario","tipo"
     ];
-    //protected $visible = ['desc_menu','permiso'];
+    protected $visible = ['desc_menu','formulario','permiso'];
     //primero la clase a relacionar
     //segundo la llave foranea de la tabla relacionar
     //tercero la llave de tabla a relacionar
@@ -19,5 +19,6 @@ class Menu extends Model
    public function permiso()
    {
        return $this->hasMany(Permiso::class,'menu_id','id');
+       //->selectRaw('CAST(opcion AS UNSIGNED)+10 AS opcion_uid');
    }
 }

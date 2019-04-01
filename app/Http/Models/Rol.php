@@ -15,7 +15,7 @@ class Rol extends Model
     protected $visible = ['id','desc_rol','permiso'];
 
     public function empleado(){
-       return $this->belongsToMany(User::class,'empleado_rol','rol_id','empleado_id');
+       return $this->hasMany(User::class,'rol_id','id');
     }
 
     public function permiso(){

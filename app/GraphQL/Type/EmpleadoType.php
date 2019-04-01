@@ -75,7 +75,18 @@ class EmpleadoType extends GraphQLType
             'email' =>[
                 'type'=> Type::string(),
                 'description'=> 'email'
-            ]
+            ],
+            'rol' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->rol['desc_rol'];
+                    },
+                'selectable' => false],
+            'rol_id' =>[
+                        'type'=> Type::int(),
+                        'description'=> 'email'
+                    ],    
 
             // field relation to model user_profiles
            /* 'user_profiles' => [

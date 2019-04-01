@@ -22,12 +22,12 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable= [
-        "dni","nombres","apellido_paterno","apellido_materno","usuario","activo","email","password","created_at","updated_at","rol"
+        "dni","nombres","apellido_paterno","apellido_materno","usuario","activo","email","password","created_at","updated_at","rol_id"
     ];
     protected $hidden = [
         'password', 'remember_token',
     ];
-    protected $visible = ['id', 'dni','full_name','email','rol'];
+    protected $visible = ['id', 'dni','full_name','email','rol_id','rol'];
 
     public function getJWTIdentifier()
     {
@@ -54,7 +54,8 @@ class User extends Authenticatable implements JWTSubject
        //Segundo el nombre de la tabla pivot )perfil_cliente_tipo_producto)
        //La clave foranea de la Clase Principal (TipoProducto)
        // la clave foranea de la clase a relacionar (PerfilCliente= ..(perfil_cliente_id)
-       return $this->belongsToMany(Rol::class,'empleado_rol','empleado_id','rol_id');
+      // return $this->belongsToMany(Rol::class,'empleado_rol','empleado_id','rol_id');
+      return $this->belongsTo(Rol::class,'rol_id','id');
     }
     public function auditoria(){
         return $this->hasMany(Auditoria::class,'empleado_id','id');

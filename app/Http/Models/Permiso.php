@@ -11,7 +11,12 @@ class Permiso extends Model
     protected $fillable = [
         "desc_permiso"
     ];
+    //protected $appends = ['opcion_uid'];
     protected $visible = ['opcion','modulo','menu','rol'];
+
+    /*protected $casts = [
+        'opcion' => 'integer',
+    ];*/
 
    /* public function modulo()
     {
@@ -26,5 +31,9 @@ class Permiso extends Model
         return $this->belongsToMany('App\Http\Models\Rol','rol_permiso','permiso_id','rol_id');        
     }
 
+    /*public function getOpcionUidAttribute()
+    {
+        return ($this->opcion);
+    }*/
 
 }

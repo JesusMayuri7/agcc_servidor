@@ -64,7 +64,10 @@ class EmpleadoMutation extends Mutation
                 'name' => 'email',
                 'type' => Type::string()
             ],
-
+            'rol_id' => [
+                'name' => 'rol_id',
+                'type' => Type::int()
+            ],
         ];
     }
     public function resolve($root, $args)
@@ -79,6 +82,7 @@ class EmpleadoMutation extends Mutation
 
         };
         if (isset($args['id'])) {
+           $args['password'] = bcrypt($args['password']); 
            $user = User::find($args['id']);
            if (!$user) {
             return null;
@@ -88,7 +92,7 @@ class EmpleadoMutation extends Mutation
         }
         else {
             $args['password'] = bcrypt($args['password']);
-            dd($args['password']);
+           // dd($args['password']);
             $user = User::create($args);
             if (!$user) {
                 return null;
