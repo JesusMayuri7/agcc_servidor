@@ -9,6 +9,7 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
 use Rebing\GraphQL\Support\SelectFields;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\DB;
 
 class ResolucionQuery extends Query
 {
@@ -82,14 +83,20 @@ class ResolucionQuery extends Query
                 $query->where('id',$args['id']);
             }
             if (isset($args['nro_resolucion'])) {
-                $query->where('nro_resolucion','LIKE','%'.$args['nro_resolucion'].'%');
+                $query->where('nro_resolucion',$args['nro_resolucion']);
             }
+            if (isset($args['created_at'])) {              
+                $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') ='".$args["created_at"]."'");
+            }  
+            
         };
-
+      
+       //$queries = DB::getQueryLog();
         $user = Resolucion::with(array_keys($fields->getRelations()))
             ->where($where)
             //->select($fields->getSelect())
             ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
+       
         return $user;
     }
 }

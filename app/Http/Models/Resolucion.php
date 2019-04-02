@@ -17,4 +17,9 @@ class Resolucion extends Model
     {
         return $this->belongsTo('App\http\Models\Solicitud','solicitud_id','id');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->toDateTimeString();
+    }
 }
