@@ -6,7 +6,7 @@ namespace App\GraphQL\Mutation;
 use App\Http\Models\Solicitud;
 use GraphQL\Type\Definition\InputObjectType;
 use App\GraphQL\Type\AvalInputObjectType;
-
+use JWTAuth;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Mutation;
@@ -19,6 +19,15 @@ class SolicitudMutation extends Mutation
     public function type()
     {
         return GraphQL::type('solicitudType');
+    }
+    public function authorize(array $args)
+    {
+       try {
+            $this->auth = JWTAuth::parseToken()->authenticate();
+        } catch (\Exception $e) {
+            $this->auth = null;
+        }
+        return (boolean) $this->auth;
     }
     public function args()
     {
@@ -168,6 +177,7 @@ class SolicitudMutation extends Mutation
     public function resolve($root, $args)
     {
         //dd($args);
+        $payload=auth()->payload();
         $where = function ($query) use ($args) {
             if (isset($args['id'])) {
                 $query->where('id',$args['id']);
@@ -202,6 +212,8 @@ class SolicitudMutation extends Mutation
            return $user;
         }
         else {
+            $args['empleado_id']=$payload['sub'];
+            $args['nro_solicitud'] = Solicitud::max('nro_solicitud')+1;
             $user = Solicitud::create($args);
             if (!$user) {
                 return null;

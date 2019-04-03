@@ -23,7 +23,7 @@ class ClienteQuery extends Query
         // result of query with pagination laravel
         return GraphQL::paginate('clienteType');
     }
-/*
+
     public function authorize(array $args)
     {
        try {
@@ -33,7 +33,7 @@ class ClienteQuery extends Query
         }
         return (boolean) $this->auth;
     }
-  */  
+    
     // arguments to filter query
     public function args()
     {
@@ -64,7 +64,8 @@ class ClienteQuery extends Query
             ],
             'full_name' => [
                 'name' => 'full_name',
-                'type' => Type::string()
+                'type' => Type::string(),
+                'selectable' => false
             ],
             'activo' => [
                 'name' => 'activo',
@@ -105,11 +106,21 @@ class ClienteQuery extends Query
             if (isset($args['dni'])) {
                 $query->where('dni',$args['dni']);
             }
+            if (isset($args['apellido_paterno'])) {
+                $query->where('apellido_paterno','LIKE',$args['apellido_paterno'].'%');
+            }
+            if (isset($args['apellido_materno'])) {
+                $query->where('apellido_materno','LIKE',$args['apellido_materno'].'%');
+            }
+            if (isset($args['nombres'])) {
+                $query->where('nombres','LIKE','%'.$args['nombres'].'%');
+            }            
         };
-
+//dd($args);
         $user = Cliente::with(array_keys($fields->getRelations()))
             ->where($where)
             ->select($fields->getSelect())
+            ->orderBy('id', 'desc')
             ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
         return $user;
     }

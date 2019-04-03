@@ -26,7 +26,7 @@ class ClienteMutation extends Mutation
             ],
             'dni' => [
                 'name' => 'dni',
-                'type' => Type::nonNull(Type::int())
+                'type' => Type::nonNull(Type::string())
             ],
             'nombres' => [
                 'name' => 'nombres',
@@ -42,18 +42,48 @@ class ClienteMutation extends Mutation
             ],
             'fecha_nacimiento' => [
                 'name' => 'fecha_nacimiento',
-                'type' => Type::nonNull(Type::string())
+                'type' => Type::string()
+            ],
+            'direccion' => [
+                'name' => 'direccion',
+                'type' => Type::string()
+            ],
+            'telefono' => [
+                'name' => 'telefono',
+                'type' => Type::string()
+            ],
+            'activo' => [
+                'name' => 'activo',
+                'type' => Type::int()
             ],
         ];
     }
     public function resolve($root, $args)
     {
-        $args['password'] = bcrypt($args['password']);
-        $user = Cliente::create($args);
-        if (!$user) {
+        $where = function ($query) use ($args) {
+            if (isset($args['id'])) {
+                $query->where('id',$args['id']);
+            }
+            if (isset($args['dni'])) {
+                $query->where('dni',$args['dni']);
+            }
+
+        };
+        if (isset($args['id'])) {           
+           $user = Cliente::find($args['id']);
+           if (!$user) {
             return null;
+            }
+           $user->update($args); 
+           return $user;
         }
-        //$user->user_profiles()->create($args);
-        return $user;
+        else {            
+           // dd($args['password']);
+            $user = Cliente::create($args);
+            if (!$user) {
+                return null;
+            }
+            return $user;
+        }
     }
 }

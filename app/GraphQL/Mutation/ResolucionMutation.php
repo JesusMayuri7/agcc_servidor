@@ -88,7 +88,7 @@ class ResolucionMutation extends Mutation
             return $user;
             }
             else {
-                $args['nro_resolucion'] = Resolucion::max('id')+1;
+                $args['nro_resolucion'] = Resolucion::max('nro_resolucion')+1;
                 $user = Resolucion::create($args);
                 if (!$user) {
                     return null;

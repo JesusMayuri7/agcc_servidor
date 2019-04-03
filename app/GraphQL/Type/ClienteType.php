@@ -76,6 +76,10 @@ class ClienteType extends GraphQLType
                     return $group->pivot->tipo;
                     },
             ],
+            'activo' =>[
+                'type' => Type::int(),
+                'name' => 'activo'
+            ],
         ];
     }
     protected function resolveFullNameField($root, $args)
