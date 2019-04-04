@@ -155,7 +155,7 @@ class SolicitudQuery extends Query
                 $query->where('id',$args['id']);
             }
             if (isset($args['nro_solicitud'])) {
-                $query->where('nro_solicitud','LIKE','%'.$args['nro_solicitud'].'%');
+                $query->where('nro_solicitud',$args['nro_solicitud']);
             }
         };
         $user = Solicitud::with(array_keys($fields->getRelations()))
