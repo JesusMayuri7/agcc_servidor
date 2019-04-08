@@ -176,7 +176,7 @@ class SolicitudMutation extends Mutation
     }
     public function resolve($root, $args)
     {
-        //dd($args);
+     
         $payload=auth()->payload();
         $where = function ($query) use ($args) {
             if (isset($args['id'])) {
@@ -187,6 +187,7 @@ class SolicitudMutation extends Mutation
             }
 
         };
+     
         if (isset($args['id'])) {
            $user = Solicitud::find($args['id']);
            if (!$user) {
@@ -212,20 +213,24 @@ class SolicitudMutation extends Mutation
            return $user;
         }
         else {
+            
             $args['empleado_id']=$payload['sub'];
             $args['nro_solicitud'] = Solicitud::max('nro_solicitud')+1;
+           
             $user = Solicitud::create($args);
+           // dd($args);
             if (!$user) {
                 return null;
             }
             if (isset($args['avales'])) {
-                $aval = $user->avales()->detach();
+                //$aval = $user->avales()->detach();
                 $aval=[];
                 foreach ($args['avales'] as $item) {
                         array_push($aval,array('solicitud_id'=>$user->id,'cliente_id'=>$item['cliente_id'] , 'tipo' =>$item['tipo']));
                 };
                 $user->avales()->attach($aval);
             }
+           // dd($args);
             if (isset($args['tipo_info_detalle'])) {
                 $aval = $user->tipo_info_detalle()->detach();
                 $aval=[];
