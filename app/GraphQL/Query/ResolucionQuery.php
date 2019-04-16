@@ -88,15 +88,13 @@ class ResolucionQuery extends Query
             if (isset($args['created_at'])) {              
                 $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') ='".$args["created_at"]."'");
             }  
-            
         };
-      
-       //$queries = DB::getQueryLog();
         $user = Resolucion::with(array_keys($fields->getRelations()))
-            ->where($where)
-            //->select($fields->getSelect())
-            ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
-       
-        return $user;
+        ->where($where)
+        //->select($fields->getSelect())
+        ->orderBy('created_at', 'desc')
+        ->paginate($args['limit'] ?? 30, ['*'], 'page', $args['per_page'] ?? 0);
+        return $user;    
+       // dd($fields);
     }
 }

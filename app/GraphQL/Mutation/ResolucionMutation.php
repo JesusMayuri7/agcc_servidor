@@ -56,6 +56,10 @@ class ResolucionMutation extends Mutation
                 'name' => 'interes',
                 'type' => Type::float()
             ],
+            'cuota' => [
+                'name' => 'cuota',
+                'type' => Type::float()
+            ],
             'monto' => [
                 'name' => 'monto',
                 'type' => Type::float()

@@ -157,6 +157,9 @@ class SolicitudQuery extends Query
             if (isset($args['nro_solicitud'])) {
                 $query->where('nro_solicitud',$args['nro_solicitud']);
             }
+            if (isset($args['created_at'])) {              
+                $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') ='".$args["created_at"]."'");
+            }  
         };
         $user = Solicitud::with(array_keys($fields->getRelations()))
         ->where($where)
