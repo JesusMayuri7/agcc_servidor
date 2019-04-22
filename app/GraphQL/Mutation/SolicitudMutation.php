@@ -212,13 +212,13 @@ class SolicitudMutation extends Mutation
             }                    
            return $user;
         }
-        else {
-            
+        else {        
             $args['empleado_id']=$payload['sub'];
-            $args['nro_solicitud'] = Solicitud::max('nro_solicitud')+1;
+            $nueva_solicitud= Solicitud::latest()->value('nro_solicitud');
+            $args['nro_solicitud'] = (integer)$nueva_solicitud+1;
            
             $user = Solicitud::create($args);
-           // dd($args);
+           // dd($nueva_solicitud);
             if (!$user) {
                 return null;
             }

@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 
 Route::middleware(['jwt.auth'])-> group(function(){
     Route::post('permisos','PermisosController@index');
+    Route::post('resumen_info','SolicitudController@resumen_info');
 });
 
 Route::post('login','LoginController@authenticate');

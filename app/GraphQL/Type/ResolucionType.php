@@ -121,7 +121,16 @@ class ResolucionType extends GraphQLType
                             return $root->solicitud['plazo'];
                             },
                     'selectable'=>false
-            ]
+                        ],
+            'nro_solicitud' => [
+                            'type' => Type::string(),
+                          //  'always' => ['full_name'],
+                            'description' => 'The profile of the user',
+                            'resolve' => function ($root) { // As a workaround
+                                return $root->solicitud['nro_solicitud'];
+                                },
+                    'selectable'=>false
+                            ],
         ];
     }
 }
