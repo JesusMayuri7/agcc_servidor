@@ -246,6 +246,14 @@ class SolicitudType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The plazo of the user'
             ],
+            'cliente_direccion' => [
+                'type' => Type::string(),
+                'description' => 'The profile of the user',
+                'resolve' => function ($root) { // As a workaround
+                    return $root->cliente['direccion'];
+                    },
+            'selectable'=>false
+            ],
         ];
     }
 
